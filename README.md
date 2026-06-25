@@ -10,13 +10,41 @@ We've all enjoyed the classic battleship game, whether digitized or in board-gam
 
 ![Design image](DemoImage.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Here is a sequence diagram detailing how users interact with the server to make their moves.
 
 ```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
+flowchart TD
+
+    P1[Player 1]
+    P2[Player 2]
+    P3[Player N]
+
+    P1 --> WEB[Battle Submarines Web Client]
+    P2 --> WEB
+    P3 --> WEB
+
+    WEB --> API[AWS Game Server]
+
+    API --> SESSION[Game Session Manager]
+    SESSION --> STATE[Game State Database]
+
+    SESSION --> PLACE[Submarine Placement Phase]
+    SESSION --> ROUND[Round Processing]
+
+    ROUND --> MOVE[Player Movement Commands]
+    ROUND --> FIRE[Torpedo Fire Commands]
+
+    MOVE --> VALIDATE[Validate Actions]
+    FIRE --> VALIDATE
+
+    VALIDATE --> STATE
+
+    STATE --> RESULTS[Updated Positions and Damage]
+    RESULTS --> WEB
+
+    WEB --> P1
+    WEB --> P2
+    WEB --> P3
 ```
 
 ### Key features
