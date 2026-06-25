@@ -76,15 +76,15 @@ For this deliverable I did the following:
 - [x] A concise and compelling elevator pitch
 - [x] Description of key features
 - [x] Description of how you will use each technology
-- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] One or more rough sketches of your application.
 
 ## 🚀 AWS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Rented EC2 server** - I did not complete this part of the deliverable.
-- [ ] **Leased domain name** - I did not complete this part of the deliverable.
-- [ ] **Server accessible** from my domain: [https://yourdomainnamehere.click](https://yourdomainnamehere.click) - I did not complete this part of the deliverable.
+- [x] **Rented EC2 server** - Succesfully acquired a working t3.nano server
+- [x] **Leased domain name** - Purchased domain name battleship3.click
+- [x] **Server accessible** from my domain: [https://battleship3.click](https://battleship3.click) - Ready for next steps
 
 ## 🚀 HTML deliverable
 
