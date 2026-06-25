@@ -62,8 +62,8 @@ I am going to use the required technologies in the following ways.
 
 - **HTML** - Structures the webpages where users will log in, join/host game sessions and view the game layout
 - **CSS** - Styling to detail the structure of each webpage as well as the gameplay elements 
-- **React** - Handles the rendering/animations of webpage interactions and asset movement.
-- **Service** - Backend service which handles data retrieval, character interaction and scoring
+- **React** - Handles the rendering/animations of webpage interactions and asset movement. Will also handle user interaction with webpage and playable characters
+- **Service** - AWS manages the user login/logout, player actions as a whole, game session timing and scoring. Will also use NASA API to generate game maps from actual ocean photos
 - **DB/Login** - Securely stores user information, score and session history
 - **WebSocket** - Live updates the positioning and status of each player to each other as well as scores and hits.
 
