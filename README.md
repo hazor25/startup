@@ -1,6 +1,6 @@
 # Battle Submarines
 
-brief description..
+This application is an evolution of the classic battleship game, growing from 2D to 3D, as such they are submarines instead of regular ships and fire torpedoes instead of air missles. The application is built using html, css, javascript, react, mongoDB, websocket and amazon web services which allows it to host individual sessions with as many players as desired, each player recieving live updates about scores and positions as they control their submarine in turn-based combat interaction.
 
 ### Elevator pitch
 
