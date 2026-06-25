@@ -1,10 +1,10 @@
 # Battle Submarines
 
-This application is an evolution of the classic battleship game, growing from 2D to 3D, as such they are submarines instead of regular ships and fire torpedoes instead of air missles. The application is built using html, css, javascript, react, mongoDB, websocket and amazon web services which allows it to host individual sessions with as many players as desired, each player recieving live updates about scores and positions as they control their submarine in turn-based combat interaction.
+This application is a transformation of the original battleship game, growing from 2D to 3D, as such they are submarines instead of regular ships and fire torpedoes instead of air missles. The application is built using html, css, javascript, react, mongoDB, websocket and amazon web services which allows it to host individual sessions with as many players as desired, each player recieving live updates about scores and positions as they control their submarine in round-based, synchronous combat interaction.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+We've all enjoyed the classic battleship game, whether digitized or in board-game form, but games have to evolve to stay relevant and maintain their success. That is where Battle Submarines comes in, a true advancement of what Battleship was meant to be, Battle Submarines turns 2D into 3D, slow, turn-based interaction into synchronous progression, and limited spatial decision-making into strategic movement. This application allows multiple sessions to be played at the same time with nearly unlimited players per session, meaning nearly unlimited fun.
 
 ### Design
 
