@@ -60,26 +60,23 @@ flowchart TD
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Structures the webpages where users will log in, join/host game sessions and view the game layout
+- **CSS** - Styling to detail the structure of each webpage as well as the gameplay elements 
+- **React** - Handles the rendering/animations of webpage interactions and asset movement.
+- **Service** - Backend service which handles data retrieval, character interaction and scoring
+- **DB/Login** - Securely stores user information, score and session history
+- **WebSocket** - Live updates the positioning and status of each player to each other as well as scores and hits.
 
 ## 🚀 Specification Deliverable
 
-> [!NOTE]
-> Fill in this sections as the submission artifact for this deliverable. You can refer to this [example](https://github.com/webprogramming260/startup-example/blob/main/README.md) for inspiration.
+For this deliverable I did the following:
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
-- [ ] I completed the prerequisites for this deliverable (Git commit requirement)
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] I completed the prerequisites for this deliverable (Git commit requirement)
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ## 🚀 AWS deliverable
 
