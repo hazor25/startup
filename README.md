@@ -49,9 +49,12 @@ flowchart TD
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure login over https
+- Ability to open and host multiple sessions
+- Interface that displays and handles player interactions
+- Web server that manages multiple rounds of each session
+- Database that holds users and game history
+- Real-time user updates between player decisions
 
 ### Technologies
 
