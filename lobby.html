@@ -1,98 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Battle Submarines</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Battle Submarines</title>
+    </head>
 
-  </head>
+    <body>
 
-  <body>
+        <header>
+            <h1>Battle Submarines</h1>
+        </header>
 
-    <header>
-      <h1>Battle Submarines</h1>
-    </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="lobby.html">Waiting room</a></li>
+                <li><a href="play.html">Play</a></li>
+            </ul>
+        </nav>
 
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="lobby.html">Waiting room</a></li>
-        <li><a href="play.html">Play</a></li>
-      </ul>
-    </nav>
+        <main>
+            <section>
+                <h4>Session: Alex's Game</h4>
+                <h4>Host: Alex</h4>
+                <h4>Players: 3/8</h4>
+            </section>
 
-    <main>
-      <section>
-        <h2>Welcome to Battle Submarines!</h2>
+            <section>
+                <h2>Players</h2>
 
-        <a target="_blank">
-          <img src="submarine.jpg" alt="A dark submarine surfacing through the ocean" width="300" height="200">
-        </a>
+                <ul>
+                <li>Alex (Host)</li>
+                <li>SeaWolf</li>
+                <li>You</li>
+                <li>Player joining...</li>
+                </ul>
+            </section>
 
-        <p>Battle Submarines advances the classic battleship warfare experience by 
-            (literally) adding depth, movement, and strategy.</p>
-        <p>Prepare for an underwater adventure as you engage in decisive battles with your opponents. 
-            Navigate your submarines, plan your attacks, and aim for victory!</p>
-      </section>
+            <section>
+                <h3 for="colorPicker"> Submarine Color: 
+                    <input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
+                </h3>
+            </section>
 
-      <section>
-        <h2>Login</h2>
-        <form>
-          <p> 
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required />
-          </p>
-          <p>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-          </p>
-          <button type="submit">Login</button>
-          <button type="submit">Create Account</button>
-        </form>
-      </section>
+            <section>
+                <button id="readyButton">Ready</button>
+                <button id="leaveButton">Leave</button>
+            </section>
 
-      <section>
-        <details>
-          <summary>How to Play</summary>
-          <ul>
-            <li>During the first phase, each player tactically places their submarines on their section of the 3D grid.</li>
-            <li>In live gameplay, each player makes up to three moves to position their submarines.</li>
-            <li>You can move higher or deeper into the ocean, forwards or backwards, and turn, but each cost a move.</li>
-            <li>Once everyone has finished moving, each player can fire a weapon or launch a sonar pulse from a submarine.</li>
-            <li>The torpedo can only be launched in the direction you are facing, so plan your moves carefully.</li>
-            <li>There are many ways to get information, such as close-range radar and torpedo hits, so be careful and pay attention!</li>
-            <li>When a submarine is more than half damaged, it is unable to move, but can still turn and fire</li>
-            <li>When a submarine is fully damaged, it is destroyed and removed from the game.</li>
-            <li>The playing area periodically shrinks until the last player remains. Good luck and have fun!</li>
-          </ul>
-        </details>
-      </section>
-        
-      <section>
-        <table>
-          <tr>
-            <th>Player</th>
-            <th>Wins</th>
-            <th>Kills</th>
-          </tr>
+            <section>
+                <h3>Chat</h3>
 
-          <tr>
-            <td>SeaWolf</td>
-            <td>3</td>
-            <td>8</td>
-          </tr>
+                <div id="chat-box">
+                    <p><strong>Alex:</strong> Welcome</p>
+                    <p><strong>SeaWolf:</strong> r?</p>
+                    <p><strong>You:</strong> Someone's joining</p>
+                </div>
 
-          <tr>
-            <td>Alasticass</td>
-            <td>1</td>
-            <td>3</td>
-          </tr>
-        </table>
-      </section>
-        
-    </main>
+                <form id="chat-form">
+                    <input type="text" id="chatbox" placeholder="Type your message..." />
+                    <button type="submit">Send</button>
+                </form>
+            </section>
+            
+        </main>
 
     <footer>
       <p> Luis Rosas </p>
