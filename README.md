@@ -91,15 +91,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [x] **HTML pages** - I did not complete this part of the deliverable.
-- [x] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [x] **Links** - I did not complete this part of the deliverable.
-- [x] **Text** - I did not complete this part of the deliverable.
-- [x] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [x] **Images** - I did not complete this part of the deliverable.
-- [x] **Login placeholder** - I did not complete this part of the deliverable.
-- [x] **DB data placeholder** - I did not complete this part of the deliverable.
-- [x] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - 4 unique html pages made detailing the hypothetical process of website's usage.
+- [x] **Proper HTML element usage** - Correct and logical use of varied html elements.
+- [x] **Links** - Several working links to this github and each html page.
+- [x] **Text** - Text used throughout to display real page details and future additions.
+- [x] **3rd party API placeholder** - Included NASA API placeholder in play.html.
+- [x] **Images** - Images included decoratively in index and menu.html.
+- [x] **Login placeholder** - Login placeholder added to landing page.
+- [x] **DB data placeholder** - Database placeholder included via leaderboard information.
+- [x] **WebSocket placeholder** - WebSocket placeholder included via several live information aspects, server joining for example.
 
 ## 🚀 CSS deliverable
 
