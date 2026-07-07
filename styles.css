@@ -1,5 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
+header {
+    background-color: #333;
+    color: white;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+
+    padding:.35rem;
+    padding-left: 1rem;
+}
+
+nav {
+    grid-column: 1;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
+}
+
+header h1 {
+    grid-column: 2 / span 2;
+    text-align: center;
+}
+
+#leaveGameButton {
+    grid-column: 1;
+    justify-self: start;
+
+}
+
+
 body {
     font-family: 'Orbitron', sans-serif;
 }
