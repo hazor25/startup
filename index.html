@@ -39,20 +39,44 @@
             Navigate your submarines, plan your attacks, and aim for victory!</p>
       </section>
 
-      <section class="login">
+
+      <section class ="home-panels">
+        <section class="login">
         <h2>Login</h2>
         <form>
-          <p> 
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required />
-          </p>
-          <p>
+            <input type="text" id="username" name="username" required placeholder="Enter your username" />
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-          </p>
-          <button type="submit">Login</button>
-          <button type="submit">Create Account</button>
+            <input type="password" id="password" name="password" required placeholder="Enter your password"  />
+          <button class="btn btn-primary">Login</button>
+          <button class="btn btn-secondary">Register</button>
         </form>
+      </section>
+        
+      <section class="leaderboard">
+        <h2>Leaderboard</h2>
+        <table>
+          <tr>
+            <th>Player</th>
+            <th>Wins</th>
+            <th>Kills</th>
+            <th>Deaths</th>
+          </tr>
+
+          <tr>
+            <td>SeaWolf</td>
+            <td>3</td>
+            <td>8</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td>Alasticass</td>
+            <td>1</td>
+            <td>3</td>
+            <td>5</td>
+          </tr>
+        </table>
       </section>
 
       <section class="how-to-play">
@@ -71,29 +95,8 @@
           </ul>
         </details>
       </section>
-        
-      <section class="leaderboard">
-        <table>
-          <tr>
-            <th>Player</th>
-            <th>Wins</th>
-            <th>Kills</th>
-          </tr>
 
-          <tr>
-            <td>SeaWolf</td>
-            <td>3</td>
-            <td>8</td>
-          </tr>
-
-          <tr>
-            <td>Alasticass</td>
-            <td>1</td>
-            <td>3</td>
-          </tr>
-        </table>
       </section>
-        
     </main>
 
     <footer>
