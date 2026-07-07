@@ -1,27 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
+html{
+    height: 100%;
+}
+
+
 header {
     background-color: #333;
     color: white;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
 
     padding:.35rem;
-    padding-left: 1rem;
 }
 
 nav {
     grid-column: 1;
     display: flex;
+    justify-content: start;
+
+    margin-left: 1rem;
     gap: 1rem;
-    justify-content: space-around;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color:rgb(82, 127, 194);
+    text-decoration: underline;
+}
+
+a:active {
+    color: rgb(150, 204, 242);
+    text-decoration: underline;
+}
+
+
 header h1 {
-    grid-column: 2 / span 2;
+    grid-column: 2;
     text-align: center;
+    -webkit-text-stroke: 1px rgb(6, 4, 145);
+    font-weight: bold;
 }
 
 #leaveGameButton {
@@ -31,6 +60,35 @@ header h1 {
 }
 
 
+
 body {
     font-family: 'Orbitron', sans-serif;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+footer {
+    background-color: #212121;
+    color: white;
+    font-size: 0.7rem;
+}
+
+footer div {
+    display: flex;
+}
+
+footer div p {
+    margin: .2rem;
+    margin-left: .5rem;
 }
