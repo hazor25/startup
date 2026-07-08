@@ -139,7 +139,7 @@ main {
     text-align: center;
 }
 .login h2 {
-    margin-bottom: .3rem;
+    margin-bottom: .75rem;
     color: rgb(170,220,255);
 }
 .login label {
@@ -149,12 +149,15 @@ main {
 .login input {
     display: block;
     width: 75%;
-    margin: .35rem 0 1rem 0;
+    margin: .75rem 0 1.25rem 0;
 
     background: rgb(230,235,245);
 
     border: 1px solid rgb(80,120,180);
     border-radius: 6px;
+}
+.login button {
+    margin-top: 1.5rem;
 }
 .login button:hover {
     background: rgb(140, 183, 240);
@@ -169,19 +172,18 @@ main {
     text-align: center;
     padding: 1.5rem;
 }
+.leaderboard h2{
+    margin-bottom: .75rem;
+    color: rgb(170,220,255);
+}
 .leaderboard table {
     width: 100%;
     border-collapse: collapse;
-}
-.leaderboard h2{
-    margin-bottom: .3rem;
-    color: rgb(170,220,255);
 }
 .leaderboard th {
     background-color: rgba(50, 90, 150, 0.7);
 
     padding: .75rem;
-
     text-align: left;
 
     color: white;
@@ -194,7 +196,7 @@ main {
 .leaderboard tr:nth-child(even) {
     background: rgba(255,255,255,.05);
 }
-.leaderboard tr:hover {
+.leaderboard tbody tr:hover {
     background: rgba(144, 183, 231, 0.25);
 }
 .leaderboard td:nth-child(1),
@@ -202,14 +204,75 @@ main {
     text-align: start;
 }
 
-.host-join {
-    text-align: center;
-}
+
 .how-to-play {
     text-align: start;
 }
+.how-to-play h2{
+    text-align: center;
+    margin-bottom: .75rem;
+    color: rgb(170,220,255);
+}
+.how-to-play ul {
+    margin: 0 0 0 -10px;
+    letter-spacing: 2.5px;
+    font-size: .75rem;
+    text-indent: -20px;
+}
+.how-to-play li {
+    padding-left: 20px;
+}
+.how-to-play p {
+    margin: .5rem 0 0 0;
+    color: rgb(170,220,255);
+    text-align: center;
+}
 
 
+.host-join h2 {
+    text-align: center;
+    margin-bottom: .75rem;
+    color: rgb(170,220,255);
+}
+.menu-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.host-panel,
+.join-panel {
+    border-top: 1px solid rgba(255,255,255,.2);
+    margin: 1rem 0 1rem 0;
+}
+.host-panel h3,
+.join-panel h3 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+.host-panel input{
+    display: block;
+    width: 75%;
+    margin: .75rem 0 .75rem 0;
+
+    background: rgb(230,235,245);
+
+    border: 1px solid rgb(80,120,180);
+    border-radius: 6px;
+}
+.host-join ul {
+    list-style: none;
+    padding: 0;
+}
+.host-join li {
+    padding: .75rem;
+    margin-bottom: .5rem;
+    background: rgba(255,255,255,.08);
+    border-radius: 6px;
+    cursor: pointer;
+}
+.host-join li:hover {
+    background: rgba(90,140,200,.35);
+}
 
 
 
