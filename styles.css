@@ -269,7 +269,7 @@ main {
 
 #lobby-main {
     width: min(90%, 1440px);
-    margin: -5rem 0 0 1.75rem;
+    margin: 0 0 0 1.75rem;
     gap: 3rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -325,6 +325,76 @@ main {
     gap: .75rem;
 }
 
+
+
+.game-info {
+    text-align: center;
+    margin: 1rem 0 2rem;
+}
+.game-info h4 {
+    color: rgb(170,220,255);
+    font-weight: normal;
+    margin-bottom: .3rem;
+}
+.game-info h3 {
+    font-size: 1.4rem;
+}
+.battlefield {
+    width: min(90%, 850px);
+
+    background: rgba(20,35,55,.30);
+    border: 2px solid rgb(90,140,200);
+    border-radius: 15px;
+
+    padding: 1.5rem;
+    text-align: center;
+
+    backdrop-filter: blur(4px);
+}
+.battlefield table {
+    margin: 2rem auto;
+    border-collapse: collapse;
+}
+.battlefield td {
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(120,180,255,.5);
+    font-size: 1.3rem;
+    text-align: center;
+}
+.battlefield table {
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(20,70,140,.35),
+            rgba(5,25,60,.6)
+        );
+}
+.controls {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
+    width: min(90%,1000px);
+}
+.movement-controls{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:.75rem;
+}
+.controls button {
+    background:rgb(40,85,155);
+    border:none;
+    color:white;
+    padding:.75rem;
+    border-radius:8px;
+    transition:.2s;
+}
+button:hover{
+    background:rgb(80,145,220);
+    transform:translateY(-2px);
+    cursor:pointer;
+}
 
 
 
