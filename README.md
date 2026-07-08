@@ -105,13 +105,13 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **Visually appealing colors and layout. No overflowing elements.** - Site looks very colorful with a unique, consistent style. There are no overflowing elements.
+- [x] **Use of a CSS framework** - Bootstrap was used, on most of the buttons for example.
+- [x] **All visual elements styled using CSS** - All elements have some sort of styling using css.
+- [x] **Responsive to window resizing using flexbox and/or grid display** - html pages adapt nicely to screen changes.
+- [x] **Use of a imported font** - Orbitron used throughout the entire site now.
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - Basically every type of selector is used in its respective, relevant way.
 
 ## 🚀 React part 1: Routing deliverable
 
