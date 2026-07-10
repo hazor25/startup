@@ -1,10 +1,17 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Play } from './play/play';
+import { Menu } from './menu/menu';
+import { Lobby } from './lobby/lobby';
+
 
 export default function App() {
   return (
-    <div className="body bg-dark text-light">
+    <BrowserRouter>
+      <div className="body bg-dark text-light">
       <header className="container-fluid">
         <nav className="navbar fixed-top navbar-dark">
           <div className="navbar-brand">
@@ -45,6 +52,8 @@ export default function App() {
           </a>
         </div>
       </footer>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
+
