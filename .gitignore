@@ -2,3 +2,5 @@ node_modules/
 deployFiles.sh
 .vscode/
 .DS_Store
+package-lock.json
+package.json
