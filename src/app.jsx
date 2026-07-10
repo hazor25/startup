@@ -19,30 +19,36 @@ export default function App() {
           </div>
           <menu className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="index.html">
-                Home
-              </a>
+              <NavLink className="nav-link" to="">
+                Login
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="play.html">
+              <NavLink className="nav-link" to="menu">
+                Menu
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="lobby">
+                Lobby
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="play">
                 Play
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="scores.html">
-                Scores
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="about.html">
-                About
-              </a>
+              </NavLink>
             </li>
           </menu>
         </nav>
       </header>
 
-      <main>App components go here</main>
+      <Routes>
+        <Route path='/' element={<Login />} exact />
+        <Route path='/play' element={<Play />} />
+        <Route path='/lobby' element={<Lobby />} />
+        <Route path='/menu' element={<Menu />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
 
       <footer className="bg-dark text-white-50">
         <div className="container-fluid">
@@ -57,3 +63,6 @@ export default function App() {
   );
 }
 
+function NotFound() {
+  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+}
