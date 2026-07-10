@@ -12,34 +12,25 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="body bg-dark text-light">
-        <header className="container-fluid">
-          <nav className="navbar fixed-top navbar-dark">
-            <div className="navbar-brand">
-              Simon<sup>&reg;</sup>
-            </div>
-            <menu className="navbar-nav">
-              <li className="nav-item">
+
+        <header>
+
+            <nav>
                 <NavLink className="nav-link" to="">
                   Login
                 </NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink className="nav-link" to="menu">
                   Menu
                 </NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink className="nav-link" to="lobby">
                   Lobby
                 </NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink className="nav-link" to="play">
                   Play
                 </NavLink>
-              </li>
-            </menu>
-          </nav>
+            </nav>
+            
+            <h1>Battle Submarines</h1>
         </header>
 
         <Routes>
@@ -50,14 +41,16 @@ export default function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
 
-        <footer className="bg-dark text-white-50">
-          <div className="container-fluid">
-            <span className="text-reset">Author Name(s)</span>
-            <a className="text-reset" href="https://github.com/webprogramming260/simon-react">
-              Source
-            </a>
+        <footer>
+          <div>
+            <p> Luis Rosas </p>
+            <p> <a href="https://github.com/hazor25/startup" target="_blank">GitHub</a> </p>
+          </div>
+          <div>
+            <p>&copy; 2026 Battle Submarines. All rights reserved.</p>
           </div>
         </footer>
+
       </div>
     </BrowserRouter>
   );
