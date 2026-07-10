@@ -8,7 +8,7 @@ We've all enjoyed the classic battleship game, whether digitized or in board-gam
 
 ### Design
 
-![Design image](DemoImage.png)
+![Design image](./public/DemoImage.png)
 
 Here is a sequence diagram detailing how users interact with the server to make their moves.
 
