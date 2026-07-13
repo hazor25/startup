@@ -16,16 +16,16 @@ export default function App() {
         <header>
 
             <nav>
-                <NavLink className="nav-link" to="">
+                <NavLink className="nav-link" to="/">
                   Login
                 </NavLink>
-                <NavLink className="nav-link" to="menu">
+                <NavLink className="nav-link" to="/menu">
                   Menu
                 </NavLink>
-                <NavLink className="nav-link" to="lobby">
+                <NavLink className="nav-link" to="/lobby">
                   Lobby
                 </NavLink>
-                <NavLink className="nav-link" to="play">
+                <NavLink className="nav-link" to="/play">
                   Play
                 </NavLink>
             </nav>

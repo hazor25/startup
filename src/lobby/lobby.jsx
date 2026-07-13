@@ -1,4 +1,6 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 export function Lobby() {
   return (
@@ -22,8 +24,8 @@ export function Lobby() {
                 </section>
 
                 <section>
-                    <button className="btn btn-primary">Ready</button>
-                    <button className="btn btn-secondary">Leave</button>
+                    <button variant="primary">Ready</button>
+                    <button variant="secondary">Leave</button>
                 </section>
 
                 <section className="submarine-color">
@@ -45,7 +47,7 @@ export function Lobby() {
                     <form id="chat-form">
                         <label for="chatbox">Chat Message:</label>
                         <input type="text" id="chatbox" placeholder="Type your message..." />
-                        <button className="btn btn-primary">Send</button>
+                        <button variant="primary">Send</button>
                     </form>
                 </section>
             </section>

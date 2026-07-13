@@ -1,4 +1,6 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 export function Login() {
   return (
@@ -21,8 +23,8 @@ export function Login() {
             <input type="text" id="username" name="username" required placeholder="Enter your username" />
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required placeholder="Enter your password"  />
-            <button className="btn btn-primary">Login</button>
-            <button className="btn btn-secondary">Register</button>
+            <button variant="primary">Login</button>
+            <button variant="secondary">Register</button>
           </form>
         </section>
         

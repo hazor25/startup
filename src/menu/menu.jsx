@@ -1,4 +1,6 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 export function Menu() {
   return (
@@ -18,14 +20,14 @@ export function Menu() {
           <h2>Host or Join Game</h2>
 
           <div className="menu-actions">
-              <button className="btn btn-primary">Host Game</button>
-              <button className="btn btn-secondary">Join Game</button>
+              <button variant="primary">Host Game</button>
+              <button variant="secondary">Join Game</button>
           </div>
 
-          <div class="host-panel">
+          <div className="host-panel">
             <h3>Host Game</h3>
 
-            <label for="gameName">Session Name</label>
+            <label htmlfor="gameName">Session Name</label>
             <input type="text" id="gameName" placeholder="Enter game name"></input>
             <button className="btn btn-light btn-sm">Create Session</button>
           </div>
