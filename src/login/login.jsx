@@ -2,6 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
+const [username, setUsername] = usestate("")
+const [password, setPassword] = usestate("")
+
 export function Login() {
   return (
     <main>
@@ -20,11 +23,16 @@ export function Login() {
           <h2>Login</h2>
           <form>
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required placeholder="Enter your username" />
+
+            <input type="text" id="username" name="username" required placeholder="Enter your username"
+            value={username} onChange={(e) => setUsername(e.target.value)}/>
+
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Enter your password"  />
-            <button variant="primary">Login</button>
-            <button variant="secondary">Register</button>
+            <input type="password" id="password" name="password" required placeholder="Enter your password" 
+            value={password} onChange={(e) => setPassword(e.target.value)}/>
+
+            <button variant="primary" onClick={login}>Login</button>
+            <button variant="secondary" onClick={register}>Register</button>
           </form>
         </section>
         
@@ -82,4 +90,17 @@ export function Login() {
       </section>
     </main>
   );
+}
+
+
+
+
+
+
+function login() {
+
+}
+
+function register(){
+  
 }
