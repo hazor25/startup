@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
@@ -8,12 +10,14 @@ export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
 
   function login() {
     const savedUser = JSON.parse(localStorage.getItem("user"));
 
     if (savedUser && savedUser.username === username && savedUser.password === password) {
-      alert("Login successful!");
+      navigate("/menu");
     } else {
         alert("Incorrect username or password.");
     }
@@ -22,11 +26,12 @@ export function Login() {
 
   function register(){
     const user = {
-    username: username,
-    password: password
+    username,
+    password
     }
 
     localStorage.setItem("user", JSON.stringify(user));
+    navigate("/menu");
   }
 
 
