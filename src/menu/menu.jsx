@@ -1,8 +1,15 @@
 import React from 'react';
+import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
 export function Menu() {
+
+  const [mode, setMode] = useState("");
+
+
+
   return (
     <main>
       <section className="welcome">
@@ -20,18 +27,25 @@ export function Menu() {
           <h2>Host or Join Game</h2>
 
           <div className="menu-actions">
-              <button variant="primary">Host Game</button>
-              <button variant="secondary">Join Game</button>
+              <Button type="button" variant="primary" onClick={() => setMode("host")}>Host Game</Button>
+
+              <Button type="button" variant="secondary" onClick={() => setMode("join")}>Join Game</Button>
           </div>
 
+
+          {mode === "host" && (
           <div className="host-panel">
             <h3>Host Game</h3>
 
             <label htmlfor="gameName">Session Name</label>
             <input type="text" id="gameName" placeholder="Enter game name"></input>
-            <button className="btn btn-light btn-sm">Create Session</button>
-          </div>
 
+            <button className="btn btn-light btn-sm">Create Session</button>
+
+          </div>)}
+
+
+          {mode === "join" && (
           <div className="join-panel">
             <h3>Available Games</h3>
 
@@ -40,7 +54,8 @@ export function Menu() {
               <li>12345 (1/8 players)</li>
               <li>No active games found</li>
             </ul>
-          </div>
+          </div>)}
+          
         </section>
 
           
