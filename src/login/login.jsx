@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
-const [username, setUsername] = usestate("")
-const [password, setPassword] = usestate("")
 
 export function Login() {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  function login() {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (savedUser && savedUser.username === username && savedUser.password === password) {
+      alert("Login successful!");
+    } else {
+        alert("Incorrect username or password.");
+    }
+  }
+
+
+  function register(){
+    const user = {
+    username: username,
+    password: password
+    }
+
+    localStorage.setItem("user", JSON.stringify(user));
+  }
+
+
+
   return (
     <main>
       <section className="welcome">
@@ -22,17 +47,17 @@ export function Login() {
         <section className="login">
           <h2>Login</h2>
           <form>
-            <label for="username">Username:</label>
+            <label htmlFor="username">Username:</label>
 
             <input type="text" id="username" name="username" required placeholder="Enter your username"
             value={username} onChange={(e) => setUsername(e.target.value)}/>
 
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <input type="password" id="password" name="password" required placeholder="Enter your password" 
             value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-            <button variant="primary" onClick={login}>Login</button>
-            <button variant="secondary" onClick={register}>Register</button>
+            <Button type ="button" variant="primary" onClick={login}>Login</Button>
+            <Button type="button" variant="secondary" onClick={register}>Register</Button>
           </form>
         </section>
         
@@ -90,17 +115,4 @@ export function Login() {
       </section>
     </main>
   );
-}
-
-
-
-
-
-
-function login() {
-
-}
-
-function register(){
-  
 }
