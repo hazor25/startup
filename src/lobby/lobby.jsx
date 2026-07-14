@@ -9,7 +9,10 @@ export function Lobby() {
 
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
+    const [ready, setReady] = useState(false);
+    const [color, setColor] = useState("#ff0000");
 
+    const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("user"));
     const sessionName = localStorage.getItem("sessionName");
 
@@ -18,6 +21,10 @@ export function Lobby() {
     "SeaWolf",
     "Player 3"
 ]);
+
+    function leaveLobby() {
+        navigate("/menu");
+    }
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -49,12 +56,11 @@ export function Lobby() {
         if (message === "") {
             return;
         }
-        const user = JSON.parse(localStorage.getItem("user"));
 
-        setMessages([
+        setMessages(messages =>[ 
             ...messages,
             {
-                user: user.username,
+                user: user,
                 text: message
             }
         ]);
@@ -68,7 +74,7 @@ export function Lobby() {
                 <section className="session-info">
                     <h4>Session: {sessionName}</h4>
                     <h4>Host: {user.username}</h4>
-                    <h4>Players: {length(players)}/8</h4>
+                    <h4>Players: {players.length}/8</h4>
                 </section>
 
                 <section className="players">
@@ -82,13 +88,15 @@ export function Lobby() {
                 </section>
 
                 <section>
-                    <Button variant="primary">Ready</Button>
-                    <Button variant="secondary">Leave</Button>
+                    <Button variant={ready ? "success" : "primary"} onClick={() => setReady(!ready)}>
+                    {ready ? "Ready!" : "Ready"}</Button>
+
+                    <Button variant="secondary" onClick={leaveLobby}>Leave</Button>
                 </section>
 
                 <section className="submarine-color">
                     <label htmlFor="colorPicker">Submarine Color:</label>
-                    <input type="color" id="colorPicker" name="colorPicker" value="#ff0000"></input>
+                    <input type="color" id="colorPicker" value={color} onChange={(e) => { setColor(e.target.value); localStorage.setItem("subColor", e.target.value);}}/>
                 </section>
             </section>
 
