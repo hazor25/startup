@@ -9,40 +9,59 @@ export function Play() {
     const sessionName = localStorage.getItem("sessionName");
     const user = JSON.parse(localStorage.getItem("user"));
 
-    const [depth, setDepth] = useState("Surface");
     const [round, setRound] = useState(1);
-    const [direction, setDirection] = useState("North");
     const [lastAction, setLastAction] = useState("Waiting...");
+
+    const [submarine, setSubmarine] = useState({
+        row: 2,
+        col: 2,
+        depth: 2,
+        direction: 0,
+    });
 
 
     function move(action) {
         switch (action) {
             case "left":
-                setDirection("West");
-                setLastAction("Turned Left");
+                setSubmarine({
+                    ...submarine,
+                    direction: directions[submarine.direction-1]
+                });
                 break;
 
             case "right":
-                setDirection("East");
-                setLastAction("Turned Right");
+                setSubmarine({
+                    ...submarine,
+                    direction: directions[submarine.direction+1]
+                });
                 break;
 
             case "forward":
-                setLastAction("Moved Forward");
+                setSubmarine({
+                    ...submarine,
+                    row: submarine.row+1
+                });
                 break;
 
             case "backwards":
-                setLastAction("Moved Backward");
+                setSubmarine({
+                    ...submarine,
+                    row: submarine.row-1
+                });
                 break;
 
             case "dive":
-                setDepth("Deep");
-                setLastAction("Dived");
+                setSubmarine({
+                    ...submarine,
+                    depth: submarine.depth-1
+                });
                 break;
 
             case "up":
-                setDepth("Surface");
-                setLastAction("Ascended");
+                setSubmarine({
+                    ...submarine,
+                    depth: submarine.depth+1
+                });
                 break;
         }
     }
