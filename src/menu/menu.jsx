@@ -7,7 +7,21 @@ import Button from 'react-bootstrap/Button';
 export function Menu() {
 
   const [mode, setMode] = useState("");
+  const [sessionName, setSessionName] = useState("");
 
+  const navigate = useNavigate();
+
+
+  function hostGame() {
+    localStorage.setItem("sessionName", sessionName);
+    navigate("/lobby");
+  }
+
+
+  function joinGame(name) {
+    localStorage.setItem("sessionName", name);
+    navigate("/lobby");
+  }
 
 
   return (
@@ -38,9 +52,10 @@ export function Menu() {
             <h3>Host Game</h3>
 
             <label htmlfor="gameName">Session Name</label>
-            <input type="text" id="gameName" placeholder="Enter game name"></input>
+            <input type="text" id="gameName" placeholder="Enter game name"
+            value={sessionName} onChange={(e) => setSessionName(e.target.value)}/>
 
-            <button className="btn btn-light btn-sm">Create Session</button>
+            <Button type ="button" variant="light" onClick={hostGame} >Create Session</Button>
 
           </div>)}
 
@@ -50,9 +65,9 @@ export function Menu() {
             <h3>Available Games</h3>
 
             <ul>
-              <li>Alex's game (2/8 players)</li>
-              <li>12345 (1/8 players)</li>
-              <li>No active games found</li>
+              <li onClick={() => joinGame("Alex's game")}>Alex's game (2/8 players)</li>
+              <li onClick={() => joinGame("12345")}>12345 (1/8 players)</li>
+              <li onClick={() => joinGame("jeffery")}>jeffery (1/8 players)</li>
             </ul>
           </div>)}
           
