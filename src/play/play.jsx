@@ -27,7 +27,7 @@ export function Play() {
             case "left":
                 setSubmarine({
                     ...submarine,
-                    direction: (submarine.direction - 1) % 4
+                    direction: (submarine.direction + 3) % 4
                 });
                 break;
 
@@ -55,47 +55,47 @@ export function Play() {
             case "dive":
                 setSubmarine({
                     ...submarine,
-                    depth: submarine.depth-1
+                    depth: submarine.depth+1
                 });
                 break;
 
             case "up":
                 setSubmarine({
                     ...submarine,
-                    depth: submarine.depth+1
+                    depth: submarine.depth-1
                 });
                 break;
         }
     }
 
 
-        function move(action) {
+    function attack(action) {
         switch (action) {
             case "torpedo":
-                setLastAction(`Fired ${weapon}`);
+                setLastAction(`Fired ${action}`);
                 break;
 
             case "bomb":
-                setLastAction(`Fired ${weapon}`);
+                setLastAction(`Fired ${action}`);
                 break;
 
             case "sam":
-                setLastAction(`Fired ${weapon}`);
+                setLastAction(`Fired ${action}`);
                 break;
 
             case "sonar":
-                setLastAction(`Fired ${weapon}`);
+                setLastAction(`Fired ${action}`);
                 break;
         }
     }
 
 
-  return (
-    <main>
+    return (
+        <main>
 
             <section className="game-info">
-                <h4>Session: Alex's Game     Host: Alex     Players: 4/8</h4>
-                <h3>Round 4     Players remaining: 4</h3>
+                <h4>Session: {sessionName}     Host: {user.username}    Players: 4/8</h4>
+                <h3>Round {round}     Players remaining: 4</h3>
             </section>
                 
             <section className="battlefield">
@@ -161,8 +161,12 @@ export function Play() {
                     </tbody>
                 </table>
 
-                <h3>Current Ocean Layer</h3>
-                <p>Depth: Surface</p>
+                <div className="subInfo">
+                    <p>Depth: {submarine.depth}</p>
+                    <p>Facing: {directions[submarine.direction]}</p>
+                    <p>Position: ({submarine.row}, {submarine.col})</p>
+                    <p>Last Action: {lastAction}</p>
+                </div>
             </section>
 
             <section className="controls">
