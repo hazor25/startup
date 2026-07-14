@@ -1,10 +1,33 @@
 import React from 'react';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
 export function Lobby() {
-  return (
-    <main id="lobby-main">
+
+    const [messages, setMessages] = useState([]);
+    const [message, setMessage] = useState("");
+
+
+    function sendMessage(message) {
+        if (message === "") {
+            return;
+        }
+
+        setMessages([
+            ...messages,
+            {
+                user: localStorage.getItem("username"),
+                text: message
+            }
+        ]);
+
+    setMessage("");
+    }
+
+    return (
+        <main id="lobby-main">
             <section className="player-section-left">
                 <section className="session-info">
                     <h4>Session: Alex's Game</h4>
@@ -24,12 +47,12 @@ export function Lobby() {
                 </section>
 
                 <section>
-                    <button variant="primary">Ready</button>
-                    <button variant="secondary">Leave</button>
+                    <Button variant="primary">Ready</Button>
+                    <Button variant="secondary">Leave</Button>
                 </section>
 
                 <section className="submarine-color">
-                    <label for="colorPicker">Submarine Color:</label>
+                    <label htmlFor="colorPicker">Submarine Color:</label>
                     <input type="color" id="colorPicker" name="colorPicker" value="#ff0000"></input>
                 </section>
             </section>
@@ -39,19 +62,19 @@ export function Lobby() {
                     <h3>Chat</h3>
 
                     <div id="chat-box">
-                        <p><strong>Alex:</strong> Welcome</p>
-                        <p><strong>SeaWolf:</strong> r?</p>
-                        <p><strong>You:</strong> Someone's joining</p>
+                        
                     </div>
 
                     <form id="chat-form">
-                        <label for="chatbox">Chat Message:</label>
-                        <input type="text" id="chatbox" placeholder="Type your message..." />
-                        <button variant="primary">Send</button>
+                        <label htmlFor="chatbox">Chat Message:</label>
+                        <input type="text" id="chatbox" placeholder="Type your message..." 
+                        value ={message} onChange={(e) => setMessage(e.target.value)}/>
+
+                        <Button variant="primary" onClick={() => sendMessage(message)}>Send</Button>
                     </form>
                 </section>
             </section>
-            
+                
         </main>
-  );
+    );
 }

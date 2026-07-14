@@ -51,7 +51,7 @@ export function Menu() {
           <div className="host-panel">
             <h3>Host Game</h3>
 
-            <label htmlfor="gameName">Session Name</label>
+            <label htmlFor="gameName">Session Name</label>
             <input type="text" id="gameName" placeholder="Enter game name"
             value={sessionName} onChange={(e) => setSessionName(e.target.value)}/>
 
