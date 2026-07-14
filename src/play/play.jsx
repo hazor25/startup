@@ -1,6 +1,53 @@
 import React from 'react';
+import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 export function Play() {
+
+    const sessionName = localStorage.getItem("sessionName");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const [depth, setDepth] = useState("Surface");
+    const [round, setRound] = useState(1);
+    const [direction, setDirection] = useState("North");
+    const [lastAction, setLastAction] = useState("Waiting...");
+
+
+    function move(action) {
+        switch (action) {
+            case "left":
+                setDirection("West");
+                setLastAction("Turned Left");
+                break;
+
+            case "right":
+                setDirection("East");
+                setLastAction("Turned Right");
+                break;
+
+            case "forward":
+                setLastAction("Moved Forward");
+                break;
+
+            case "backwards":
+                setLastAction("Moved Backward");
+                break;
+
+            case "dive":
+                setDepth("Deep");
+                setLastAction("Dived");
+                break;
+
+            case "up":
+                setDepth("Surface");
+                setLastAction("Ascended");
+                break;
+        }
+    }
+
+
   return (
     <main>
 
@@ -80,17 +127,17 @@ export function Play() {
                 <h2>Submarine Controls</h2>
 
                 <div className="movement-controls">
-                    <button>Turn Left</button>
-                    <button>Move Forward</button>
-                    <button>Turn Right</button>
-                    <button>Dive</button>
-                    <button>Move Backward</button>
-                    <button>Ascend</button>
+                    <button onClick={() => move("left")}>Turn Left</button>
+                    <button onClick={() => move("forward")}>Move Forward</button>
+                    <button onClick={() => move("right")}>Turn Right</button>
+                    <button onClick={() => move("dive")}>Dive</button>
+                    <button onClick={() => move("backwards")}>Move Backward</button>
+                    <button onClick={() => move("up")}>Ascend</button>
                 </div>
 
                 <h2>Weapons</h2>
 
-                <div class="weapon-controls">
+                <div className="weapon-controls">
                     <button>Fire Torpedo</button>
                     <button>Drop Bomb</button>
                     <button>Fire SAM</button>
