@@ -12,6 +12,8 @@ export function Play() {
     const [round, setRound] = useState(1);
     const [lastAction, setLastAction] = useState("Waiting...");
 
+    const directions = ["North", "East", "South", "West"];
+
     const [submarine, setSubmarine] = useState({
         row: 2,
         col: 2,
@@ -25,14 +27,14 @@ export function Play() {
             case "left":
                 setSubmarine({
                     ...submarine,
-                    direction: directions[submarine.direction-1]
+                    direction: (submarine.direction - 1) % 4
                 });
                 break;
 
             case "right":
                 setSubmarine({
                     ...submarine,
-                    direction: directions[submarine.direction+1]
+                    direction: (submarine.direction + 1) % 4
                 });
                 break;
 
@@ -62,6 +64,27 @@ export function Play() {
                     ...submarine,
                     depth: submarine.depth+1
                 });
+                break;
+        }
+    }
+
+
+        function move(action) {
+        switch (action) {
+            case "torpedo":
+                setLastAction(`Fired ${weapon}`);
+                break;
+
+            case "bomb":
+                setLastAction(`Fired ${weapon}`);
+                break;
+
+            case "sam":
+                setLastAction(`Fired ${weapon}`);
+                break;
+
+            case "sonar":
+                setLastAction(`Fired ${weapon}`);
                 break;
         }
     }
@@ -157,10 +180,10 @@ export function Play() {
                 <h2>Weapons</h2>
 
                 <div className="weapon-controls">
-                    <button>Fire Torpedo</button>
-                    <button>Drop Bomb</button>
-                    <button>Fire SAM</button>
-                    <button>Launch Sonar Pulse</button>
+                    <button onClick={() => attack("torpedo")}>Fire Torpedo</button>
+                    <button onClick={() => attack("bomb")}>Drop Bomb</button>
+                    <button onClick={() => attack("sam")}>Fire SAM</button>
+                    <button onClick={() => attack("sonar")}>Launch Sonar Pulse</button>
                 </div>
                     
             </section>
