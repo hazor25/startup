@@ -11,7 +11,7 @@ import { Lobby } from './lobby/lobby';
 
 
 export default function App() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   return (
     <BrowserRouter>
@@ -24,7 +24,7 @@ export default function App() {
               Login
             </NavLink>
 
-            {user && (
+            {currentUser && (
               <>
                 <NavLink className="nav-link" to="/menu">
                   Menu

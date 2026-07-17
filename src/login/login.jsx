@@ -14,10 +14,25 @@ export function Login() {
 
 
   function login() {
-    const savedUser = JSON.parse(localStorage.getItem("user"));
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if (savedUser && savedUser.username === username && savedUser.password === password) {
-      navigate("/menu");
+    const foundUser = users.find(
+        user =>
+            user.username === username &&
+            user.password === password
+    );
+
+    if (foundUser) {
+
+        localStorage.setItem(
+            "currentUser",
+            JSON.stringify({
+                username: foundUser.username
+            })
+        );
+
+        navigate("/menu");
+
     } else {
         alert("Incorrect username or password.");
     }
@@ -25,12 +40,25 @@ export function Login() {
 
 
   function register(){
-    const user = {
-    username,
-    password
-    }
+   const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    localStorage.setItem("user", JSON.stringify(user));
+   if (users.find(user => user.username === username)) {
+    alert("Username already exists.");
+    return;
+  }
+
+    users.push({
+        username,
+        password,
+    });
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ username })
+    );
+
     navigate("/menu");
   }
 
