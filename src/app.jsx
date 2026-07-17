@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { ProtectedRoute } from './components/protectedRoutes';
+import { Navigate } from "react-router-dom";
 import { Login } from './login/login';
 import { Play } from './play/play';
 import { Menu } from './menu/menu';
@@ -9,35 +11,44 @@ import { Lobby } from './lobby/lobby';
 
 
 export default function App() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <BrowserRouter>
       <div className="body bg-dark text-light">
 
         <header>
 
-            <nav>
-                <NavLink className="nav-link" to="/">
-                  Login
-                </NavLink>
+          <nav>
+            <NavLink className="nav-link" to="/">
+              Login
+            </NavLink>
+
+            {user && (
+              <>
                 <NavLink className="nav-link" to="/menu">
                   Menu
                 </NavLink>
+
                 <NavLink className="nav-link" to="/lobby">
                   Lobby
                 </NavLink>
+
                 <NavLink className="nav-link" to="/play">
                   Play
                 </NavLink>
-            </nav>
+              </>
+            )}
+          </nav>
             
             <h1>Battle Submarines</h1>
         </header>
 
         <Routes>
           <Route path='/' element={<Login />} exact />
-          <Route path='/play' element={<Play />} />
-          <Route path='/lobby' element={<Lobby />} />
-          <Route path='/menu' element={<Menu />} />
+          <Route path="/lobby" element={<ProtectedRoute><Lobby /></ProtectedRoute>}/>
+          <Route path="/play" element={<ProtectedRoute><Play /></ProtectedRoute>}/>
+          <Route path='/menu' element={<ProtectedRoute><Menu /></ProtectedRoute>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
 

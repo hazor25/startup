@@ -39,17 +39,19 @@ export function Play() {
                 break;
 
             case "forward":
-                setSubmarine({
-                    ...submarine,
-                    row: submarine.row+1
-                });
+                if (submarine.direction % 2 == 0) {
+                    setSubmarine({...submarine, row: submarine.row+1});
+                } else {
+                    setSubmarine({...submarine, col: submarine.col+1});
+                }
                 break;
 
             case "backwards":
-                setSubmarine({
-                    ...submarine,
-                    row: submarine.row-1
-                });
+                if (submarine.direction % 2 == 0) {
+                    setSubmarine({...submarine, row: submarine.row+1});
+                } else {
+                    setSubmarine({...submarine, col: submarine.col+1});
+                }
                 break;
 
             case "dive":

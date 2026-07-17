@@ -31,7 +31,7 @@ export function Lobby() {
             setMessages(messages => [
                 ...messages,
                 {
-                    user: "SeaWolf",
+                    username: "SeaWolf",    
                     text: "Ready?"
                 }
             ]);
@@ -60,7 +60,7 @@ export function Lobby() {
         setMessages(messages =>[ 
             ...messages,
             {
-                user: user,
+                username: user.username,
                 text: message
             }
         ]);
@@ -107,7 +107,7 @@ export function Lobby() {
                     <div id="chat-box">
                         {messages.map((msg, index) => (
                             <p key={index}>
-                                <strong>{msg.user}:</strong> {msg.text}
+                                <strong>{msg.username}:</strong> {msg.text}
                             </p>
                         ))}
                     </div>
