@@ -1,6 +1,16 @@
+# Dependencies
 node_modules/
-deployFiles.sh
-.vscode/
+service/node_modules/
+
+# OS files
 .DS_Store
-package-lock.json
-package.json
+Thumbs.db
+
+# Editor settings
+.vscode/
+
+# Environment variables (later)
+.env
+
+# Build output
+dist/

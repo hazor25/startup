@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
 
+
 export function Login() {
 
   const [username, setUsername] = useState("");
@@ -13,7 +14,13 @@ export function Login() {
   const navigate = useNavigate();
 
 
-  function login() {
+  async function login() {
+    const response = await fetch('/api/test');
+
+  const data = await response.json();
+
+  console.log(data.message);
+
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
     const foundUser = users.find(
