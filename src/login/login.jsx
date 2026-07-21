@@ -15,11 +15,6 @@ export function Login() {
 
 
   async function login() {
-    const response = await fetch('/api/test');
-
-  const data = await response.json();
-
-  console.log(data.message);
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -46,27 +41,24 @@ export function Login() {
   }
 
 
-  function register(){
-   const users = JSON.parse(localStorage.getItem("users")) || [];
-
-   if (users.find(user => user.username === username)) {
-    alert("Username already exists.");
-    return;
-  }
-
-    users.push({
-        username,
-        password,
+  async function register(){
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          username,
+          password,
+      }),
     });
 
-    localStorage.setItem("users", JSON.stringify(users));
-
-    localStorage.setItem(
-        "currentUser",
-        JSON.stringify({ username })
-    );
-
-    navigate("/menu");
+    if (response.ok) {
+      navigate("/menu");
+    } else {
+      const data = await response.json();
+      alert(data.message);
+    }
   }
 
 

@@ -9,6 +9,22 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-app.get('/api/test', (req, res) => {
-    res.send({ message: "Backend is working!" });
+const users = [];
+
+app.post("/api/auth/register", (req, res) => {
+    const { username, password } = req.body;
+    const existingUser = users.find(user => user.username === username);
+
+    if (existingUser) {
+        return res.status(409).json({
+            message: "Username already exists"
+        });
+    }
+    const user = {
+        username,
+        password,
+    };
+
+    users.push(user);
+    res.json({message: "Registered successfully"});
 });
