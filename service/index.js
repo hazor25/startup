@@ -20,11 +20,25 @@ app.post("/api/auth/register", (req, res) => {
             message: "Username already exists"
         });
     }
-    const user = {
+
+    users.push(user = {
         username,
         password,
-    };
-
-    users.push(user);
+    });
+    
     res.json({message: "Registered successfully"});
+});
+
+app.post("/api/auth/login", (req, res) => {
+    const { username, password } = req.body;
+    const existingUser = users.find(user => 
+        user.username === username && 
+        user.password === password);
+
+    if (!existingUser) {
+        return res.status(401).json({
+            message: "Incorrect username or password"
+        });
+    }
+    res.json({message: "Login successful"});
 });

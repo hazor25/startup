@@ -14,42 +14,15 @@ export function Login() {
   const navigate = useNavigate();
 
 
-  async function login() {
-
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-
-    const foundUser = users.find(
-        user =>
-            user.username === username &&
-            user.password === password
-    );
-
-    if (foundUser) {
-
-        localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-                username: foundUser.username
-            })
-        );
-
-        navigate("/menu");
-
-    } else {
-        alert("Incorrect username or password.");
-    }
-  }
-
-
-  async function register(){
-    const response = await fetch("/api/auth/register", {
+  async function authenticate(endpoint) {
+    const response = await fetch(`/api/auth/${endpoint}`, {
       method: "POST",
       headers: {
-          "Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-          username,
-          password,
+        username,
+        password,
       }),
     });
 
@@ -88,8 +61,8 @@ export function Login() {
             <input type="password" id="password" name="password" required placeholder="Enter your password" 
             value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-            <Button type ="button" variant="primary" onClick={login}>Login</Button>
-            <Button type="button" variant="secondary" onClick={register}>Register</Button>
+            <Button type ="button" variant="primary" onClick={() => authenticate("login")}>Login</Button>
+            <Button type="button" variant="secondary" onClick={() => authenticate("register")}>Register</Button>
           </form>
         </section>
         
