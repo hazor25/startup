@@ -60,7 +60,6 @@ export function Login() {
           <h2>Login</h2>
           <form>
             <label htmlFor="username">Username:</label>
-
             <input type="text" id="username" name="username" required placeholder="Enter your username"
             value={username} onChange={(e) => setUsername(e.target.value)}/>
 

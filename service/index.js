@@ -23,13 +23,20 @@ const authTokens = [];
 app.post("/api/auth/register", async (req, res) => {
     const { username, password } = req.body;
 
-    if (!username || !password) {
+    if (
+        typeof username !== "string" ||
+        typeof password !== "string" ||
+        username.trim().length === 0 ||
+        password.trim().length === 0
+    ) {
         return res.status(400).json({
             message: "Username and password are required"
         });
     }
 
-    const existingUser = users.find(user => user.username === username);
+    const cleanUsername = username.trim();
+
+    const existingUser = users.find(user => user.username === cleanUsername);
 
     if (existingUser) {
         return res.status(409).json({
@@ -38,29 +45,45 @@ app.post("/api/auth/register", async (req, res) => {
     }
 
     const hash = await bcrypt.hash(password, 10);
+
     users.push({
-        username,
+        username: cleanUsername,
         password: hash,
     });
 
     const token = uuid();
     authTokens.push({
-        token, 
-        username
+        token,
+        username: cleanUsername
     });
 
     res.cookie("token", token, {
         httpOnly: true,
     });
 
-    res.json({message: "Registered successfully",
-        username
+    res.json({
+        message: "Registered successfully",
+        username: cleanUsername
     });
 });
 
 app.post("/api/auth/login", async (req, res) => {
     const { username, password } = req.body;
-    const existingUser = users.find(user => user.username === username);
+
+    if (
+        typeof username !== "string" ||
+        typeof password !== "string" ||
+        username.trim().length === 0 ||
+        password.trim().length === 0
+    ) {
+        return res.status(400).json({
+            message: "Username and password are required"
+        });
+    }
+
+    const cleanUsername = username.trim();
+
+    const existingUser = users.find(user => user.username === cleanUsername);
 
     if (!existingUser) {
         return res.status(401).json({
@@ -69,6 +92,7 @@ app.post("/api/auth/login", async (req, res) => {
     }
 
     const valid = await bcrypt.compare(password, existingUser.password);
+
     if (!valid) {
         return res.status(401).json({
             message: "Incorrect username or password"
@@ -77,7 +101,7 @@ app.post("/api/auth/login", async (req, res) => {
 
     const token = uuid();
     authTokens.push({
-        token, 
+        token,
         username: existingUser.username
     });
 
@@ -85,7 +109,8 @@ app.post("/api/auth/login", async (req, res) => {
         httpOnly: true,
     });
 
-    res.json({message: "Login successful",
+    res.json({
+        message: "Login successful",
         username: existingUser.username
     });
 });
