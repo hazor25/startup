@@ -341,6 +341,7 @@ main {
 .game-info h3 {
     font-size: 1.4rem;
 }
+
 .battlefield {
     width: min(90%, 850px);
 
@@ -356,6 +357,13 @@ main {
 .battlefield table {
     margin: 2rem auto;
     border-collapse: collapse;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(20,70,140,.35),
+            rgba(5,25,60,.6)
+        );
 }
 .battlefield td {
     width: 60px;
@@ -364,14 +372,7 @@ main {
     font-size: 1.3rem;
     text-align: center;
 }
-.battlefield table {
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(20,70,140,.35),
-            rgba(5,25,60,.6)
-        );
-}
+
 .controls {
     margin-top: 2rem;
     display: grid;
