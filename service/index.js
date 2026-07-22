@@ -2,6 +2,9 @@ const express = require("express");
 
 const bcrypt = require("bcryptjs");
 
+const cookieParser = require("cookie-parser");
+const { v4: uuid } = require("uuid");
+
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -21,7 +24,7 @@ app.post("/api/auth/register", async (req, res) => {
             message: "Username and password are required"
         });
     }
-    
+
     const existingUser = users.find(user => user.username === username);
 
     if (existingUser) {

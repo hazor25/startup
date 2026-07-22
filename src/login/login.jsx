@@ -35,7 +35,7 @@ export function Login() {
           username: data.username
         })
       );
-      navigate("/menu");
+      window.location.href = "/menu";
     } else {
       alert(data.message);
     }

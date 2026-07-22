@@ -33,7 +33,7 @@ export default function App() {
             {!currentUser ? (
               <NavLink to="/">Login</NavLink>
             ) : (
-              <Button onClick={logout}>Logout</Button>
+              <Button size="sm" variant="outline-light" onClick={logout}>Logout</Button>
             )}
 
             {currentUser && (
