@@ -25,8 +25,10 @@ app.post("/api/auth/register", (req, res) => {
         username,
         password,
     });
-    
-    res.json({message: "Registered successfully"});
+
+    res.json({message: "Registered successfully",
+        username: existingUser.username
+    });
 });
 
 app.post("/api/auth/login", (req, res) => {
@@ -40,5 +42,13 @@ app.post("/api/auth/login", (req, res) => {
             message: "Incorrect username or password"
         });
     }
-    res.json({message: "Login successful"});
+    res.json({message: "Login successful",
+        username: existingUser.username
+    });
+});
+
+app.delete("/api/auth/logout", (req, res) => {
+    res.json({
+        message: "Logged out"
+    });
 });

@@ -32,6 +32,22 @@ export function Login() {
       const data = await response.json();
       alert(data.message);
     }
+
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify({
+        username: data.username
+      })
+    );
+  }
+
+  async function logout() {
+    await fetch("/api/auth/logout", {
+      method: "DELETE"
+    });
+
+    localStorage.removeItem("currentUser");
+    navigate("/");
   }
 
 
