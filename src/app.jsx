@@ -1,7 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from "react-bootstrap/Button";
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from './components/protectedRoutes';
 import { Navigate } from "react-router-dom";
 import { Login } from './login/login';
@@ -13,6 +14,15 @@ import { Lobby } from './lobby/lobby';
 export default function App() {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+  async function logout() {
+    await fetch("/api/auth/logout", {
+      method: "DELETE"
+    });
+
+    localStorage.removeItem("currentUser");
+    window.location.href = "/";
+  }
+
   return (
     <BrowserRouter>
       <div className="body bg-dark text-light">
@@ -20,9 +30,11 @@ export default function App() {
         <header>
 
           <nav>
-            <NavLink className="nav-link" to="/">
-              Login
-            </NavLink>
+            {!currentUser ? (
+              <NavLink to="/">Login</NavLink>
+            ) : (
+              <Button onClick={logout}>Logout</Button>
+            )}
 
             {currentUser && (
               <>
