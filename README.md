@@ -134,14 +134,14 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
-- [ ] **Uses BCrypt to hash passwords** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **Node.js/Express HTTP service** - Web service now runs through express and node
+- [x] **Static middleware for frontend** - Frontend uses middleware for authorization
+- [ ] **Calls to third party endpoints** - Not yet completed
+- [x] **Backend service endpoints** - Backend has service endpoints, namely token authorization for retrieving usernames
+- [x] **Frontend calls service endpoints** - Frontend calls backend when requesting restricted information
+- [x] **Supports registration, login, logout, and restricted endpoint** - All aforementioned elements are handled on the backend with proper authorization
+- [x] **Uses BCrypt to hash passwords** - Passwords completely go through BCrypt
 
 ## 🚀 DB deliverable
 
