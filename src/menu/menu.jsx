@@ -6,6 +6,15 @@ import Button from 'react-bootstrap/Button';
 
 export function Menu() {
 
+  async function logout() {
+    await fetch("/api/auth/logout", {
+      method: "DELETE"
+    });
+
+    localStorage.removeItem("currentUser");
+    navigate("/");
+  }
+
   const [mode, setMode] = useState("");
   const [sessionName, setSessionName] = useState("");
 

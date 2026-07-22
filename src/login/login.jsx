@@ -25,29 +25,20 @@ export function Login() {
         password,
       }),
     });
+    
+    const data = await response.json();
 
     if (response.ok) {
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          username: data.username
+        })
+      );
       navigate("/menu");
     } else {
-      const data = await response.json();
       alert(data.message);
     }
-
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify({
-        username: data.username
-      })
-    );
-  }
-
-  async function logout() {
-    await fetch("/api/auth/logout", {
-      method: "DELETE"
-    });
-
-    localStorage.removeItem("currentUser");
-    navigate("/");
   }
 
 

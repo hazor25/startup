@@ -1,5 +1,7 @@
 const express = require("express");
 
+const bcrypt = require("bcryptjs");
+
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -11,8 +13,15 @@ app.listen(port, () => {
 
 const users = [];
 
-app.post("/api/auth/register", (req, res) => {
+app.post("/api/auth/register", async (req, res) => {
     const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({
+            message: "Username and password are required"
+        });
+    }
+    
     const existingUser = users.find(user => user.username === username);
 
     if (existingUser) {
@@ -21,27 +30,34 @@ app.post("/api/auth/register", (req, res) => {
         });
     }
 
-    users.push(user = {
+    const hash = await bcrypt.hash(password, 10);
+    users.push({
         username,
-        password,
+        password: hash,
     });
 
     res.json({message: "Registered successfully",
-        username: existingUser.username
+        username
     });
 });
 
-app.post("/api/auth/login", (req, res) => {
+app.post("/api/auth/login", async (req, res) => {
     const { username, password } = req.body;
-    const existingUser = users.find(user => 
-        user.username === username && 
-        user.password === password);
+    const existingUser = users.find(user => user.username === username);
 
     if (!existingUser) {
         return res.status(401).json({
             message: "Incorrect username or password"
         });
     }
+
+    const valid = await bcrypt.compare(password, existingUser.password);
+    if (!valid) {
+        return res.status(401).json({
+            message: "Incorrect username or password"
+        });
+    }
+
     res.json({message: "Login successful",
         username: existingUser.username
     });
