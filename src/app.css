@@ -343,6 +343,10 @@ main {
 }
 
 .battlefield {
+    position: relative;
+    height: 700px;
+    overflow: hidden;
+    
     width: min(90%, 850px);
 
     background: rgba(20,35,55,.30);
@@ -354,6 +358,25 @@ main {
 
     backdrop-filter: blur(4px);
 }
+
+#ocean-background {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.battlefield > *:not(#ocean-background) {
+    position: relative;
+    z-index: 1;
+}
+
+#game-grid {
+    position: relative;
+    z-index: 1;
+}
+
 .battlefield table {
     margin: 2rem auto;
     border-collapse: collapse;

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
+import { setOceanBackground } from "./NOIAPI";
+
 export function Play() {
 
     const sessionName = localStorage.getItem("sessionName");
@@ -33,6 +35,10 @@ export function Play() {
         direction: 0,
     });
 
+    useEffect(() => {
+        setOceanBackground(submarine.depth);
+    }, [submarine.depth]);
+
 
     function move(action) {
         switch (action) {
@@ -60,9 +66,9 @@ export function Play() {
 
             case "backwards":
                 if (submarine.direction % 2 == 0) {
-                    setSubmarine({...submarine, row: submarine.row+1});
+                    setSubmarine({...submarine, row: submarine.row-1});
                 } else {
-                    setSubmarine({...submarine, col: submarine.col+1});
+                    setSubmarine({...submarine, col: submarine.col-1});
                 }
                 break;
 
@@ -113,8 +119,9 @@ export function Play() {
             </section>
                 
             <section className="battlefield">
+                <div id="ocean-background"></div>
+
                 <h2>Battlefield</h2>
-                <p>*Real ocean images will be obtained via 3rd party API and displayed as grid background*</p>
                 <p>*Table will update live with client information, like when a sub is hit or radar detects movement*</p>
 
                 <table>
@@ -174,6 +181,8 @@ export function Play() {
                         </tr>
                     </tbody>
                 </table>
+
+                <div id="game-grid"></div>
 
                 <div className="subInfo">
                     <p>Depth: {submarine.depth}</p>
