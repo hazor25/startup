@@ -9,12 +9,14 @@ const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
 const users = [];
+const authTokens = [];
 
 app.post("/api/auth/register", async (req, res) => {
     const { username, password } = req.body;
@@ -39,6 +41,16 @@ app.post("/api/auth/register", async (req, res) => {
         password: hash,
     });
 
+    const token = uuid();
+    authTokens.push({
+        token, 
+        username
+    });
+
+    res.cookie("token", token, {
+        httpOnly: true,
+    });
+
     res.json({message: "Registered successfully",
         username
     });
@@ -61,13 +73,53 @@ app.post("/api/auth/login", async (req, res) => {
         });
     }
 
+    const token = uuid();
+    authTokens.push({
+        token, 
+        username: existingUser.username
+    });
+
+    res.cookie("token", token, {
+        httpOnly: true,
+    });
+
     res.json({message: "Login successful",
         username: existingUser.username
     });
 });
 
 app.delete("/api/auth/logout", (req, res) => {
+    const token = req.cookies.token;
+    const index = authTokens.findIndex(t => t.token === token);
+    if (index >= 0) {
+        authTokens.splice(index, 1);
+    }
+
+    res.clearCookie("token");
     res.json({
         message: "Logged out"
+    });
+});
+
+
+function auth(req, res, next) {
+    const token = req.cookies.token;
+
+    const user = authTokens.find(t => t.token === token);
+
+    if (!user) {
+        return res.status(401).json({
+            message: "Unauthorized"
+        });
+    }
+
+    req.user = user;
+
+    next();
+}
+
+app.get("/api/user", auth, (req, res) => {
+    res.json({
+        username: req.user.username
     });
 });
