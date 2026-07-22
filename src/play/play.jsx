@@ -7,7 +7,19 @@ import Button from 'react-bootstrap/Button';
 export function Play() {
 
     const sessionName = localStorage.getItem("sessionName");
-    const user = JSON.parse(localStorage.getItem("user"));
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        async function loadUser() {
+            const response = await fetch("/api/user");
+
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data);
+            }
+        }
+        loadUser();
+    }, []);
 
     const [round, setRound] = useState(1);
     const [lastAction, setLastAction] = useState("Waiting...");
@@ -96,7 +108,7 @@ export function Play() {
         <main>
 
             <section className="game-info">
-                <h4>Session: {sessionName}     Host: {user.username}    Players: 4/8</h4>
+                <h4>Session: {sessionName}     Host: {user?.username}    Players: 4/8</h4>
                 <h3>Round {round}     Players remaining: 4</h3>
             </section>
                 

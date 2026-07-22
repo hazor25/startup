@@ -13,14 +13,28 @@ export function Lobby() {
     const [color, setColor] = useState("#ff0000");
 
     const navigate = useNavigate();
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        async function loadUser() {
+            const response = await fetch("/api/user");
+
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data);
+            }
+        }
+
+        loadUser();
+    }, []);
+
     const sessionName = localStorage.getItem("sessionName");
 
     const [players, setPlayers] = useState([
-    currentUser.username,
-    "SeaWolf",
-    "Player 3"
-]);
+        user.username,
+        "SeaWolf",
+        "Player 3"
+    ]);
 
     function leaveLobby() {
         navigate("/menu");
@@ -60,7 +74,7 @@ export function Lobby() {
         setMessages(messages =>[ 
             ...messages,
             {
-                username: currentUser.username,
+                username: user.username,
                 text: message
             }
         ]);
@@ -73,7 +87,7 @@ export function Lobby() {
             <section className="player-section-left">
                 <section className="session-info">
                     <h4>Session: {sessionName}</h4>
-                    <h4>Host: {currentUser.username}</h4>
+                    <h4>Host: {user.username}</h4>
                     <h4>Players: {players.length}/8</h4>
                 </section>
 
