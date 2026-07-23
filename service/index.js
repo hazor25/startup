@@ -59,6 +59,8 @@ app.post("/api/auth/register", async (req, res) => {
 
     res.cookie("token", token, {
         httpOnly: true,
+        sameSite: 'strict',
+        secure: true
     });
 
     res.json({
