@@ -60,7 +60,8 @@ app.post("/api/auth/register", async (req, res) => {
     res.cookie("token", token, {
         httpOnly: true,
         sameSite: 'strict',
-        secure: true
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24
     });
 
     res.json({
