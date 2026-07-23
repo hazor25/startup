@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
-import { setOceanBackground } from "./NOIAPI";
+import { getWeatherData } from "./NOAAAPI";
 
 export function Play() {
 
     const sessionName = localStorage.getItem("sessionName");
     const [user, setUser] = useState(null);
+
+    const [weather, setWeather] = useState(null);
 
     useEffect(() => {
         async function loadUser() {
@@ -36,8 +38,17 @@ export function Play() {
     });
 
     useEffect(() => {
-        setOceanBackground(submarine.depth);
-    }, [submarine.depth]);
+        async function loadWeather() {
+            const forecastData = await getWeatherData();
+            if (forecastData.properties?.periods) {
+                setWeather(forecastData.properties.periods[0]);
+            }
+            else {
+                console.log("Unexpected response:", forecastData);
+            }
+        }
+        loadWeather(); 
+    }, []);
 
 
     function move(action) {
@@ -122,7 +133,17 @@ export function Play() {
                 <div id="ocean-background"></div>
 
                 <h2>Battlefield</h2>
-                <p>*Table will update live with client information, like when a sub is hit or radar detects movement*</p>
+                <div className="weather-info">
+                    <h4>Ocean Conditions</h4>
+
+                    {weather && (
+                        <div className="weather-data">
+                            <p>Forecast: {weather.shortForecast}</p>
+                            <p>Temperature: {weather.temperature}°F</p>
+                            <p>Wind Speed: {weather.windSpeed}</p>
+                        </div>
+                    )}
+                </div>
 
                 <table>
                     <tbody>

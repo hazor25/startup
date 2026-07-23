@@ -372,6 +372,18 @@ main {
     z-index: 1;
 }
 
+.weather-info {
+    text-align: center;
+}
+.weather-data {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.weather-data p {
+    margin: 0;
+}
+
 #game-grid {
     position: relative;
     z-index: 1;
