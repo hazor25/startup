@@ -39,15 +39,17 @@ export function Play() {
 
     useEffect(() => {
         async function loadWeather() {
-            const forecastData = await getWeatherData();
-            if (forecastData.properties?.periods) {
-                setWeather(forecastData.properties.periods[0]);
-            }
-            else {
-                console.log("Unexpected response:", forecastData);
+            try {
+                const forecastData = await getWeatherData();
+
+                if (forecastData.properties?.periods) {
+                    setWeather(forecastData.properties.periods[0]);
+                }
+            } catch (error) {
+                console.error("Failed to load weather:", error);
             }
         }
-        loadWeather(); 
+        loadWeather();
     }, []);
 
 
