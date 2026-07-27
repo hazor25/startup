@@ -137,9 +137,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 - [x] **Node.js/Express HTTP service** - Web service now runs through express and node
 - [x] **Static middleware for frontend** - Frontend uses middleware for authorization
-- [x] **Calls to third party endpoints** - Service calls NOAA API to get real world weather conditions
+- [x] **Calls to third party endpoints** - Service calls NOAA API to get real world weather conditions and display them as battlefield information
 - [x] **Backend service endpoints** - Backend has service endpoints, namely token authorization for retrieving usernames
-- [x] **Frontend calls service endpoints** - Frontend calls backend when requesting restricted information
+- [x] **Frontend calls service endpoints** - Frontend calls backend when requesting display information
 - [x] **Supports registration, login, logout, and restricted endpoint** - All aforementioned elements are handled on the backend with proper authorization
 - [x] **Uses BCrypt to hash passwords** - Passwords completely go through BCrypt
 
