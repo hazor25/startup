@@ -8,55 +8,55 @@ const userCollection = db.collection('user');
 const gameCollection = db.collection('game');
 
 async function getUser(username) {
-  return userCollection.findOne({ username: username });
+    return userCollection.findOne({ username: username });
 }
 
 async function getUserByToken(token) {
-  return userCollection.findOne({ token: token });
+    return userCollection.findOne({ token: token });
 }
 
 async function createUser(username, passwordHash) {
-  const user = {
-    username,
-    password: passwordHash,
-    token: null,
-  };
-  await userCollection.insertOne(user);
-  return user;
+    const user = {
+        username,
+        password: passwordHash,
+        token: null,
+    };
+    await userCollection.insertOne(user);
+    return user;
 }
 
 async function updateUserToken(username, token) {
-  await userCollection.updateOne(
-    { username: username },
-    { $set: { token: token } }
-  );
+    await userCollection.updateOne(
+        { username: username },
+        { $set: { token: token } }
+    );
 }
 
 async function clearUserToken(token) {
-  await userCollection.updateOne(
-    { token: token },
-    { $set: { token: null } }
-  );
+    await userCollection.updateOne(
+        { token: token },
+        { $set: { token: null } }
+    );
 }
 
 async function saveGame(username, gameData) {
-  await gameCollection.updateOne(
-    { username: username },
-    { $set: { username, gameData } },
-    { upsert: true }
-  );
+    await gameCollection.updateOne(
+        { username: username },
+        { $set: { username, gameData } },
+        { upsert: true }
+    );
 }
 
 async function getGame(username) {
-  return gameCollection.findOne({ username: username });
+    return gameCollection.findOne({ username: username });
 }
 
 module.exports = {
-  getUser,
-  getUserByToken,
-  createUser,
-  updateUserToken,
-  clearUserToken,
-  saveGame,
-  getGame,
+    getUser,
+    getUserByToken,
+    createUser,
+    updateUserToken,
+    clearUserToken,
+    saveGame,
+    getGame,
 };
