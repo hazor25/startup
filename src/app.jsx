@@ -32,6 +32,8 @@ export default function App() {
         }
       } catch (error) {
         console.error('Failed to verify user session:', error);
+        localStorage.removeItem('currentUser');
+        setCurrentUser(null);
       }
     }
 

@@ -125,14 +125,15 @@ app.delete('/api/auth/logout', async (req, res) => {
 
 async function auth(req, res, next) {
     const token = req.cookies.token;
-    console.log('auth token:', token);
+
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
 
     const user = await DB.getUserByToken(token);
 
     if (!user) {
-        return res.status(401).json({
-        message: 'Unauthorized',
-        });
+        return res.status(401).json({ message: 'Unauthorized' });
     }
 
     req.user = user;
