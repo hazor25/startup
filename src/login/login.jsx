@@ -1,77 +1,85 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
-
-
 export function Login() {
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-
   async function authenticate(endpoint) {
-    const response = await fetch(`/api/auth/${endpoint}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
-    
-    const data = await response.json();
+    try {
+      const response = await fetch(`/api/auth/${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
 
-    if (response.ok) {
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify({
-          username: data.username
-        })
-      );
-      window.location.href = "/menu";
-    } else {
-      alert(data.message);
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem(
+          'currentUser',
+          JSON.stringify({
+            username: data.username,
+          })
+        );
+
+        window.location.href = '/menu';
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Unable to connect to server');
+      console.error(error);
     }
   }
-
-
 
   return (
     <main>
       <section className="welcome">
         <h2>Welcome to Battle Submarines!</h2>
 
-        <p>Battle Submarines advances the classic battleship warfare experience by 
-            (literally) adding depth, movement, and strategy.
-            Prepare for an underwater adventure as you engage in decisive battles with your opponents. 
-            Navigate your submarines, plan your attacks, and aim for victory!</p>
+        <p>
+          Battle Submarines advances the classic battleship warfare experience by 
+          (literally) adding depth, movement, and strategy. Prepare for an underwater 
+          adventure as you engage in decisive battles with your opponents. 
+          Navigate your submarines, plan your attacks, and aim for victory!
+        </p>
       </section>
-
 
       <section className="home-panels">
         <section className="login">
           <h2>Login</h2>
           <form>
             <label htmlFor="username">Username:</label>
-            <input type="text" id="username" name="username" required placeholder="Enter your username"
-            value={username} onChange={(e) => setUsername(e.target.value)}/>
+            <input type="text" id="username" name="username"
+              required placeholder="Enter your username"
+              value={username} onChange={(e) => setUsername(e.target.value)}/>
 
             <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Enter your password" 
-            value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" id="password" name="password" 
+              required placeholder="Enter your password"
+              value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-            <Button type ="button" variant="primary" onClick={() => authenticate("login")}>Login</Button>
-            <Button type="button" variant="secondary" onClick={() => authenticate("register")}>Register</Button>
+            <Button type="button" variant="primary" onClick={() => authenticate('login')}>
+              Login
+            </Button>
+
+            <Button type="button" variant="secondary" onClick={() => authenticate('register')}>
+              Register
+            </Button>
           </form>
         </section>
-        
+
         <section className="leaderboard">
           <h2>Leaderboard</h2>
           <table>
@@ -85,7 +93,6 @@ export function Login() {
             </thead>
 
             <tbody>
-
               <tr>
                 <td>SeaWolf</td>
                 <td>3</td>
@@ -122,7 +129,6 @@ export function Login() {
           </ul>
           <p>Good luck and have fun!</p>
         </section>
-
       </section>
     </main>
   );
