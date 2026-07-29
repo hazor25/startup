@@ -13,9 +13,14 @@ export function Menu() {
 
 
   function hostGame() {
-    localStorage.setItem("sessionName", sessionName);
-    navigate("/lobby");
+  if (!sessionName.trim()) {
+    alert("Please enter a session name");
+    return;
   }
+
+  localStorage.setItem("sessionName", sessionName);
+  navigate("/lobby");
+}
 
 
   function joinGame(name) {
