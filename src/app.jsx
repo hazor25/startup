@@ -1,39 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from "react-bootstrap/Button";
+import Button from 'react-bootstrap/Button';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './components/protectedRoutes';
-import { Navigate } from "react-router-dom";
 import { Login } from './login/login';
 import { Play } from './play/play';
 import { Menu } from './menu/menu';
 import { Lobby } from './lobby/lobby';
 
-
 export default function App() {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const [currentUser, setCurrentUser] = useState(() => {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  });
+
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        const response = await fetch('/api/user', {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const user = await response.json();
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          setCurrentUser(user);
+        } else {
+          localStorage.removeItem('currentUser');
+          setCurrentUser(null);
+        }
+      } catch (error) {
+        console.error('Failed to verify user session:', error);
+      }
+    }
+
+    loadUser();
+  }, []);
 
   async function logout() {
-    await fetch("/api/auth/logout", {
-      method: "DELETE"
+    await fetch('/api/auth/logout', {
+      method: 'DELETE',
+      credentials: 'include',
     });
 
-    localStorage.removeItem("currentUser");
-    window.location.href = "/";
+    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
+    window.location.href = '/';
   }
 
   return (
     <BrowserRouter>
       <div className="body bg-dark text-light">
-
         <header>
-
           <nav>
             {!currentUser ? (
               <NavLink to="/">Login</NavLink>
             ) : (
-              <Button size="sm" variant="outline-light" onClick={logout}>Logout</Button>
+              <Button size="sm" variant="outline-light" onClick={logout}>
+                Logout
+              </Button>
             )}
 
             {currentUser && (
@@ -52,33 +78,55 @@ export default function App() {
               </>
             )}
           </nav>
-            
-            <h1>Battle Submarines</h1>
+
+          <h1>Battle Submarines</h1>
         </header>
 
         <Routes>
-          <Route path='/' element={<Login />} exact />
-          <Route path="/lobby" element={<ProtectedRoute><Lobby /></ProtectedRoute>}/>
-          <Route path="/play" element={<ProtectedRoute><Play /></ProtectedRoute>}/>
-          <Route path='/menu' element={<ProtectedRoute><Menu /></ProtectedRoute>} />
-          <Route path='*' element={<NotFound />} />
+          <Route path="/" element={<Login />} />
+          <Route
+            path="/lobby"
+            element={
+              <ProtectedRoute>
+                <Lobby />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/play"
+            element={
+              <ProtectedRoute>
+                <Play />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/menu"
+            element={
+              <ProtectedRoute>
+                <Menu />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         <footer>
           <div>
-            <p> Luis Rosas </p>
-            <p> <a href="https://github.com/hazor25/startup" target="_blank">GitHub</a> </p>
+            <p>Luis Rosas</p>
+            <p> <a href="https://github.com/hazor25/startup" target="_blank" rel="noreferrer">GitHub</a> </p>
           </div>
           <div>
             <p>&copy; 2026 Battle Submarines. All rights reserved.</p>
           </div>
         </footer>
-
       </div>
     </BrowserRouter>
   );
 }
 
 function NotFound() {
-  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+  return (
+    <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>
+  );
 }
