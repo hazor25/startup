@@ -39,15 +39,21 @@ export default function App() {
   }, []);
 
   async function logout() {
-    await fetch('/api/auth/logout', {
-      method: 'DELETE',
-      credentials: 'include',
-    });
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
 
     localStorage.removeItem('currentUser');
     setCurrentUser(null);
     window.location.href = '/';
   }
+
+  console.log('currentUser in App:', currentUser);
 
   return (
     <BrowserRouter>

@@ -33,10 +33,11 @@ async function updateUserToken(username, token) {
 }
 
 async function clearUserToken(token) {
-    await userCollection.updateOne(
-        { token: token },
-        { $set: { token: null } }
-    );
+  const result = await userCollection.updateOne(
+    { token: token },
+    { $set: { token: null } }
+  );
+  return result;
 }
 
 async function saveGame(username, gameData) {

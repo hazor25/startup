@@ -45,6 +45,7 @@ app.post('/api/auth/register', async (req, res) => {
         sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24,
+        path: '/',
     });
 
     res.json({
@@ -92,6 +93,7 @@ app.post('/api/auth/login', async (req, res) => {
         sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24,
+        path: '/',
     });
 
     res.json({
@@ -103,11 +105,19 @@ app.post('/api/auth/login', async (req, res) => {
 app.delete('/api/auth/logout', async (req, res) => {
     const token = req.cookies.token;
 
+    console.log('logout token:', token);
+
     if (token) {
         await DB.clearUserToken(token);
     }
 
-    res.clearCookie('token');
+    res.clearCookie('token', {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+    });
+
     res.json({
         message: 'Logged out',
     });
@@ -115,6 +125,8 @@ app.delete('/api/auth/logout', async (req, res) => {
 
 async function auth(req, res, next) {
     const token = req.cookies.token;
+    console.log('auth token:', token);
+
     const user = await DB.getUserByToken(token);
 
     if (!user) {
@@ -133,7 +145,7 @@ app.get('/api/user', auth, (req, res) => {
     });
 });
 
-// Example game persistence endpoints
+
 app.get('/api/game', auth, async (req, res) => {
     const game = await DB.getGame(req.user.username);
     res.json(game ? game.gameData : null);
