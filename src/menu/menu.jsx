@@ -70,9 +70,7 @@ export function Menu() {
             <h3>Available Games</h3>
 
             <ul>
-              <li onClick={() => joinGame("Alex's game")}>Alex's game (2/8 players)</li>
-              <li onClick={() => joinGame("12345")}>12345 (1/8 players)</li>
-              <li onClick={() => joinGame("jeffery")}>jeffery (1/8 players)</li>
+              //list of real games here, clickable//
             </ul>
           </div>)}
           
@@ -92,26 +90,7 @@ export function Menu() {
             </thead>
 
             <tbody>
-              <tr>
-                <td>SeaWolf</td>
-                <td>3</td>
-                <td>8</td>
-                <td>2</td>
-              </tr>
-
-              <tr>
-                <td>Alasticass</td>
-                <td>1</td>
-                <td>3</td>
-                <td>5</td>
-              </tr>
-
-              <tr>
-                <td>Noobmaster69</td>
-                <td>2</td>
-                <td>4</td>
-                <td>3</td>
-              </tr>
+              //table row per person, with their stats, sorted by wins, then kills, then deaths in each column//
             </tbody>
           </table>
 
