@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const url = `mongodb+srv://${config.userName}:${encodeURIComponent(config.password)}@${config.hostname}`;
 const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('user');
@@ -33,11 +33,11 @@ async function updateUserToken(username, token) {
 }
 
 async function clearUserToken(token) {
-  const result = await userCollection.updateOne(
-    { token: token },
-    { $set: { token: null } }
-  );
-  return result;
+    const result = await userCollection.updateOne(
+        { token: token },
+        { $set: { token: null } }
+    );
+    return result;
 }
 
 async function saveGame(username, gameData) {
