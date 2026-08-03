@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import './app.css';
@@ -13,6 +13,8 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(() => {
     return JSON.parse(localStorage.getItem('currentUser'));
   });
+
+  const socketRef = useRef(null);
 
   useEffect(() => {
     async function loadUser() {
@@ -40,6 +42,42 @@ export default function App() {
     loadUser();
   }, []);
 
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const host =
+  window.location.hostname === 'localhost'
+    ? 'localhost:4000'
+    : window.location.host;
+
+const socket = new WebSocket(`${protocol}://${host}`);
+
+    socket.onopen = () => {
+      console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+      console.log('WebSocket message received:', event.data);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    socketRef.current = socket;
+
+    return () => {
+      socket.close();
+    };
+  }, [currentUser]);
+
   async function logout() {
     try {
       await fetch('/api/auth/logout', {
@@ -48,6 +86,11 @@ export default function App() {
       });
     } catch (error) {
       console.error('Logout failed:', error);
+    }
+
+    if (socketRef.current) {
+      socketRef.current.close();
+      socketRef.current = null;
     }
 
     localStorage.removeItem('currentUser');
