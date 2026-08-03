@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
-export function Lobby() {
+export function Lobby({ socket, liveMessages }) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [ready, setReady] = useState(false);
@@ -38,28 +38,6 @@ export function Lobby() {
   function leaveLobby() {
     navigate('/menu');
   }
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          username: 'SeaWolf',
-          text: 'Ready?',
-        },
-      ]);
-    }, 8000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setPlayers((prev) => [...prev, 'Captain Nemo']);
-    }, 6000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   function sendMessage(e) {
     e.preventDefault();
