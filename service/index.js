@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const { v4: uuid } = require('uuid');
 const DB = require('./database');
+const { peerProxy } = require('./peerProxy.js');
 
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -163,6 +164,8 @@ app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+const httpService = app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);
