@@ -14,6 +14,8 @@ export default function App() {
     return JSON.parse(localStorage.getItem('currentUser'));
   });
 
+  const [liveMessages, setLiveMessages] = useState([]);
+
   const socketRef = useRef(null);
 
   useEffect(() => {
@@ -61,6 +63,13 @@ const socket = new WebSocket(`${protocol}://${host}`);
 
     socket.onmessage = (event) => {
       console.log('WebSocket message received:', event.data);
+
+      try {
+        const msg = JSON.parse(event.data);
+        setLiveMessages((prev) => [...prev, msg]);
+      } catch (error) {
+        console.error('Failed to parse WebSocket message:', error);
+      }
     };
 
     socket.onclose = () => {
@@ -139,7 +148,7 @@ const socket = new WebSocket(`${protocol}://${host}`);
             path="/lobby"
             element={
               <ProtectedRoute>
-                <Lobby />
+                <Lobby socket={socketRef.current} liveMessages={liveMessages} />
               </ProtectedRoute>
             }
           />

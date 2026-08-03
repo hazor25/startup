@@ -9,7 +9,7 @@ export function Lobby({ socket, liveMessages }) {
   const [ready, setReady] = useState(false);
   const [color, setColor] = useState('#ff0000');
   const [user, setUser] = useState(null);
-  const [players, setPlayers] = useState(['SeaWolf', 'Player 3']);
+  const [players, setPlayers] = useState([]);
 
   const navigate = useNavigate();
   const sessionName = localStorage.getItem('sessionName');
@@ -25,7 +25,12 @@ export function Lobby({ socket, liveMessages }) {
         if (response.ok) {
           const data = await response.json();
           setUser(data);
-          setPlayers((prev) => [...prev, data.username]);
+          setPlayers((prev) => {
+            if (prev.includes(data.username)) {
+              return prev;
+            }
+            return [...prev, data.username];
+          });
         }
       } catch (error) {
         console.error('Failed to load user:', error);
@@ -35,6 +40,54 @@ export function Lobby({ socket, liveMessages }) {
     loadUser();
   }, []);
 
+  useEffect(() => {
+    if (!user || !socket || socket.readyState !== WebSocket.OPEN) {
+      return;
+    }
+
+    const joinMessage = {
+      type: 'join',
+      username: user.username,
+      text: `${user.username} joined the lobby`,
+    };
+
+    socket.send(JSON.stringify(joinMessage));
+
+    setMessages((prev) => [...prev, joinMessage]);
+  }, [user, socket]);
+
+  useEffect(() => {
+    if (!liveMessages || liveMessages.length === 0) {
+      return;
+    }
+
+    const latest = liveMessages[liveMessages.length - 1];
+
+    if (latest.type === 'chat') {
+      setMessages((prev) => [...prev, latest]);
+    }
+
+    if (latest.type === 'join') {
+      setPlayers((prev) => {
+        if (prev.includes(latest.username)) {
+          return prev;
+        }
+        return [...prev, latest.username];
+      });
+      setMessages((prev) => [...prev, latest]);
+    }
+
+    if (latest.type === 'ready') {
+      setMessages((prev) => [
+        ...prev,
+        {
+          username: latest.username,
+          text: latest.text,
+        },
+      ]);
+    }
+  }, [liveMessages]);
+
   function leaveLobby() {
     navigate('/menu');
   }
@@ -42,19 +95,36 @@ export function Lobby({ socket, liveMessages }) {
   function sendMessage(e) {
     e.preventDefault();
 
-    if (message === '' || !user) {
+    if (message.trim() === '' || !user || !socket || socket.readyState !== WebSocket.OPEN) {
       return;
     }
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        username: user.username,
-        text: message,
-      },
-    ]);
+    const chatMessage = {
+      type: 'chat',
+      username: user.username,
+      text: message.trim(),
+    };
 
+    socket.send(JSON.stringify(chatMessage));
+
+    setMessages((prev) => [...prev, chatMessage]);
     setMessage('');
+  }
+
+  function toggleReady() {
+    const newReady = !ready;
+    setReady(newReady);
+
+    if (user && socket && socket.readyState === WebSocket.OPEN) {
+      const readyMessage = {
+        type: 'ready',
+        username: user.username,
+        text: `${user.username} is ${newReady ? 'ready' : 'not ready'}`,
+      };
+
+      socket.send(JSON.stringify(readyMessage));
+      setMessages((prev) => [...prev, readyMessage]);
+    }
   }
 
   return (
@@ -78,7 +148,7 @@ export function Lobby({ socket, liveMessages }) {
         <section>
           <Button
             variant={ready ? 'success' : 'primary'}
-            onClick={() => setReady(!ready)}
+            onClick={() => toggleReady()}
           >
             {ready ? 'Ready!' : 'Ready'}
           </Button>
