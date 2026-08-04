@@ -139,14 +139,14 @@ export function Menu() {
             </thead>
 
             <tbody>
-              {leaderboard.map((player) => (
+              {/* {leaderboard.map((player) => (
                 <tr key={player.username}>
                   <td>{player.username}</td>
                   <td>{player.wins}</td>
                   <td>{player.kills}</td>
                   <td>{player.deaths}</td>
                 </tr>
-              ))}
+              ))} */}
             </tbody>
           </table>
 

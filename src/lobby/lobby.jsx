@@ -47,6 +47,7 @@ export function Lobby({ socket, liveMessages }) {
 
     const joinMessage = {
       type: 'join',
+      sessionName,
       username: user.username,
       text: `${user.username} joined the lobby`,
     };
@@ -62,6 +63,9 @@ export function Lobby({ socket, liveMessages }) {
     }
 
     const latest = liveMessages[liveMessages.length - 1];
+    if (latest.sessionName !== sessionName) {
+      return;
+    }
 
     if (latest.type === 'chat') {
       setMessages((prev) => [...prev, latest]);
@@ -101,6 +105,7 @@ export function Lobby({ socket, liveMessages }) {
 
     const chatMessage = {
       type: 'chat',
+      sessionName,
       username: user.username,
       text: message.trim(),
     };
@@ -118,6 +123,7 @@ export function Lobby({ socket, liveMessages }) {
     if (user && socket && socket.readyState === WebSocket.OPEN) {
       const readyMessage = {
         type: 'ready',
+        sessionName,
         username: user.username,
         text: `${user.username} is ${newReady ? 'ready' : 'not ready'}`,
       };
