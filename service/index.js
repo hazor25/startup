@@ -160,6 +160,26 @@ app.post('/api/game', auth, async (req, res) => {
     });
 });
 
+
+app.get('/api/sessions', auth, async (_req, res) => {
+    const sessions = await DB.getSessions();
+    res.json(sessions);
+});
+
+app.post('/api/sessions', auth, async (req, res) => {
+    const { name } = req.body;
+
+    if (!name || typeof name !== 'string' || name.trim().length === 0) {
+        return res.status(400).json({ message: 'Session name is required' });
+    }
+
+    const cleanName = name.trim();
+    const session = await DB.createSession(cleanName, req.user.username);
+
+    res.json(session);
+});
+
+
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
