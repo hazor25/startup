@@ -6,6 +6,8 @@ const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('user');
 const gameCollection = db.collection('game');
+const leaderboardCollection = db.collection('leaderboard');
+const sessionCollection = db.collection('session');
 
 async function getUser(username) {
     return userCollection.findOne({ username: username });
@@ -52,6 +54,27 @@ async function getGame(username) {
     return gameCollection.findOne({ username: username });
 }
 
+
+
+async function createSession(name, host) {
+  const session = { name, host };
+  await sessionCollection.updateOne(
+    { name: name },
+    { $set: session },
+    { upsert: true }
+  );
+  return session;
+}
+
+async function getSessions() {
+  return sessionCollection.find({}).toArray();
+}
+
+async function getSession(name) {
+  return sessionCollection.findOne({ name: name });
+}
+
+
 module.exports = {
     getUser,
     getUserByToken,
@@ -60,4 +83,7 @@ module.exports = {
     clearUserToken,
     saveGame,
     getGame,
+    createSession,
+    getSessions,
+    getSession,
 };
