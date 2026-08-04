@@ -55,7 +55,7 @@ export function Lobby({ socket, liveMessages }) {
     socket.send(JSON.stringify(joinMessage));
 
     setMessages((prev) => [...prev, joinMessage]);
-  }, [user, socket]);
+  }, [user, socket, sessionName]);
 
   useEffect(() => {
     if (!liveMessages || liveMessages.length === 0) {
@@ -82,13 +82,7 @@ export function Lobby({ socket, liveMessages }) {
     }
 
     if (latest.type === 'ready') {
-      setMessages((prev) => [
-        ...prev,
-        {
-          username: latest.username,
-          text: latest.text,
-        },
-      ]);
+      setMessages((prev) => [...prev, latest]);
     }
   }, [liveMessages]);
 
@@ -154,7 +148,7 @@ export function Lobby({ socket, liveMessages }) {
         <section>
           <Button
             variant={ready ? 'success' : 'primary'}
-            onClick={() => toggleReady()}
+            onClick={toggleReady}
           >
             {ready ? 'Ready!' : 'Ready'}
           </Button>
