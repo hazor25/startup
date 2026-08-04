@@ -106,8 +106,6 @@ app.post('/api/auth/login', async (req, res) => {
 app.delete('/api/auth/logout', async (req, res) => {
     const token = req.cookies.token;
 
-    console.log('logout token:', token);
-
     if (token) {
         await DB.clearUserToken(token);
     }

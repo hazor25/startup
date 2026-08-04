@@ -22,7 +22,7 @@ export default function App() {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
 
       console.log('Sending WebSocket message:', messageObject);
-      
+
       socketRef.current.send(JSON.stringify(messageObject));
       return true;
     }
@@ -74,11 +74,13 @@ const socket = new WebSocket(`${protocol}://${host}`);
       console.log('WebSocket connected');
     };
 
-    socket.onmessage = (event) => {
+
+    socket.onmessage = async (event) => {
       console.log('WebSocket message received:', event.data);
 
       try {
-        const msg = JSON.parse(event.data);
+        const text = event.data instanceof Blob ? await event.data.text() : event.data;
+        const msg = JSON.parse(text);
         setLiveMessages((prev) => [...prev, msg]);
       } catch (error) {
         console.error('Failed to parse WebSocket message:', error);
@@ -96,6 +98,9 @@ const socket = new WebSocket(`${protocol}://${host}`);
     socketRef.current = socket;
 
     return () => {
+      if (socketRef.current === socket) {
+        socketRef.current = null;
+      }
       socket.close();
     };
   }, [currentUser]);
