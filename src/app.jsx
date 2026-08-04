@@ -18,6 +18,19 @@ export default function App() {
 
   const socketRef = useRef(null);
 
+  function sendSocketMessage(messageObject) {
+    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+
+      console.log('Sending WebSocket message:', messageObject);
+      
+      socketRef.current.send(JSON.stringify(messageObject));
+      return true;
+    }
+
+    console.error('WebSocket is not connected');
+    return false;
+  }
+
   useEffect(() => {
     async function loadUser() {
       try {
@@ -148,7 +161,7 @@ const socket = new WebSocket(`${protocol}://${host}`);
             path="/lobby"
             element={
               <ProtectedRoute>
-                <Lobby socket={socketRef.current} liveMessages={liveMessages} />
+                <Lobby sendSocketMessage={sendSocketMessage} liveMessages={liveMessages} />
               </ProtectedRoute>
             }
           />

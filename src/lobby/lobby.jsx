@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
-export function Lobby({ socket, liveMessages }) {
+export function Lobby({ sendSocketMessage, liveMessages }) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [ready, setReady] = useState(false);
@@ -13,6 +13,7 @@ export function Lobby({ socket, liveMessages }) {
 
   const navigate = useNavigate();
   const sessionName = localStorage.getItem('sessionName');
+
 
   useEffect(() => {
     async function loadUser() {
@@ -40,8 +41,9 @@ export function Lobby({ socket, liveMessages }) {
     loadUser();
   }, []);
 
+
   useEffect(() => {
-    if (!user || !socket || socket.readyState !== WebSocket.OPEN) {
+    if (!user) {
       return;
     }
 
@@ -52,10 +54,13 @@ export function Lobby({ socket, liveMessages }) {
       text: `${user.username} joined the lobby`,
     };
 
-    socket.send(JSON.stringify(joinMessage));
+    const sent = sendSocketMessage(joinMessage);
 
-    setMessages((prev) => [...prev, joinMessage]);
-  }, [user, socket, sessionName]);
+    if (sent) {
+      setMessages((prev) => [...prev, joinMessage]);
+    }
+  }, [user, sessionName, sendSocketMessage]);
+
 
   useEffect(() => {
     if (!liveMessages || liveMessages.length === 0) {
@@ -86,6 +91,7 @@ export function Lobby({ socket, liveMessages }) {
     }
   }, [liveMessages]);
 
+
   function leaveLobby() {
     navigate('/menu');
   }
@@ -93,7 +99,7 @@ export function Lobby({ socket, liveMessages }) {
   function sendMessage(e) {
     e.preventDefault();
 
-    if (message.trim() === '' || !user || !socket || socket.readyState !== WebSocket.OPEN) {
+    if (message.trim() === '' || !user) {
       return;
     }
 
@@ -104,17 +110,19 @@ export function Lobby({ socket, liveMessages }) {
       text: message.trim(),
     };
 
-    socket.send(JSON.stringify(chatMessage));
+    const sent = sendSocketMessage(chatMessage);
 
-    setMessages((prev) => [...prev, chatMessage]);
-    setMessage('');
+    if (sent) {
+      setMessages((prev) => [...prev, chatMessage]);
+      setMessage('');
+    }
   }
 
   function toggleReady() {
     const newReady = !ready;
     setReady(newReady);
 
-    if (user && socket && socket.readyState === WebSocket.OPEN) {
+    if (user) {
       const readyMessage = {
         type: 'ready',
         sessionName,
@@ -122,8 +130,11 @@ export function Lobby({ socket, liveMessages }) {
         text: `${user.username} is ${newReady ? 'ready' : 'not ready'}`,
       };
 
-      socket.send(JSON.stringify(readyMessage));
-      setMessages((prev) => [...prev, readyMessage]);
+      const sent = sendSocketMessage(readyMessage);
+
+      if (sent) {
+        setMessages((prev) => [...prev, readyMessage]);
+      }
     }
   }
 
