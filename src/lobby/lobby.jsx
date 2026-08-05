@@ -98,6 +98,31 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
     }
   }, [liveMessages]);
 
+  useEffect(() => {
+    async function loadSession() {
+      if (!sessionName) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/sessions/${encodeURIComponent(sessionName)}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const session = await response.json();
+          setPlayers(session.players || []);
+        }
+      } catch (error) {
+        console.error('Failed to load session:', error);
+      }
+    }
+
+    loadSession();
+  }, [sessionName]);
+
+
 
   function leaveLobby() {
     navigate('/menu');

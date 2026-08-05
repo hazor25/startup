@@ -55,9 +55,15 @@ async function getGame(username) {
 }
 
 
+async function addPlayerToSession(name, username) {
+    await sessionCollection.updateOne(
+        { name: name },
+        { $addToSet: { players: username } }
+    );
+}
 
 async function createSession(name, host) {
-  const session = { name, host };
+  const session = { name, host, players: [host] };
   await sessionCollection.updateOne(
     { name: name },
     { $set: session },
@@ -86,4 +92,5 @@ module.exports = {
     createSession,
     getSessions,
     getSession,
+    addPlayerToSession
 };

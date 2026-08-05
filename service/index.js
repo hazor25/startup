@@ -103,6 +103,7 @@ app.post('/api/auth/login', async (req, res) => {
     });
 });
 
+
 app.delete('/api/auth/logout', async (req, res) => {
     const token = req.cookies.token;
 
@@ -122,6 +123,7 @@ app.delete('/api/auth/logout', async (req, res) => {
     });
 });
 
+
 async function auth(req, res, next) {
     const token = req.cookies.token;
 
@@ -138,6 +140,7 @@ async function auth(req, res, next) {
     req.user = user;
     next();
 }
+
 
 app.get('/api/user', auth, (req, res) => {
     res.json({
@@ -173,6 +176,29 @@ app.post('/api/sessions', auth, async (req, res) => {
 
     const cleanName = name.trim();
     const session = await DB.createSession(cleanName, req.user.username);
+
+    res.json(session);
+});
+
+app.post('/api/sessions/:name/join', auth, async (req, res) => {
+    const sessionName = req.params.name;
+    const session = await DB.getSession(sessionName);
+
+    if (!session) {
+        return res.status(404).json({ message: 'Session not found' });
+    }
+
+    await DB.addPlayerToSession(sessionName, req.user.username);
+    const updatedSession = await DB.getSession(sessionName);
+    res.json(updatedSession);
+});
+
+app.get('/api/sessions/:name', auth, async (req, res) => {
+    const session = await DB.getSession(req.params.name);
+
+    if (!session) {
+        return res.status(404).json({ message: 'Session not found' });
+    }
 
     res.json(session);
 });

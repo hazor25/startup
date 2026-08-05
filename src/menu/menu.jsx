@@ -58,9 +58,26 @@ export function Menu() {
     }
   }
 
-  function joinGame(name) {
-    localStorage.setItem('sessionName', name);
-    navigate('/lobby');
+
+  async function joinGame(name) {
+    try {
+      const response = await fetch(`/api/sessions/${encodeURIComponent(name)}/join`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert(error.message || 'Failed to join session');
+        return;
+      }
+
+      localStorage.setItem('sessionName', name);
+      navigate('/lobby');
+    } catch (error) {
+      console.error('Failed to join session:', error);
+      alert('Failed to join session');
+    }
   }
 
 
