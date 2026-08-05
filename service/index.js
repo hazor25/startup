@@ -203,6 +203,19 @@ app.get('/api/sessions/:name', auth, async (req, res) => {
     res.json(session);
 });
 
+app.post('/api/sessions/:name/leave', auth, async (req, res) => {
+    const sessionName = req.params.name;
+    const session = await DB.getSession(sessionName);
+
+    if (!session) {
+        return res.status(404).json({ message: 'Session not found' });
+    }
+
+    await DB.removePlayerFromSession(sessionName, req.user.username);
+    const updatedSession = await DB.getSession(sessionName);
+    res.json(updatedSession);
+});
+
 
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });

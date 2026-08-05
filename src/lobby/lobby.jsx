@@ -96,7 +96,13 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
     if (latest.type === 'ready') {
       setMessages((prev) => [...prev, latest]);
     }
+
+    if (latest.type === 'leave') {
+      setPlayers((prev) => prev.filter((player) => player !== latest.username));
+      setMessages((prev) => [...prev, latest]);
+    }
   }, [liveMessages]);
+
 
   useEffect(() => {
     async function loadSession() {
@@ -124,7 +130,30 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
 
 
 
-  function leaveLobby() {
+  async function leaveLobby() {
+    if (!user || !sessionName) {
+      navigate('/menu');
+      return;
+    }
+
+    const leaveMessage = {
+      type: 'leave',
+      sessionName,
+      username: user.username,
+      text: `${user.username} left the lobby`,
+    };
+
+    sendSocketMessage(leaveMessage);
+
+    try {
+      await fetch(`/api/sessions/${encodeURIComponent(sessionName)}/leave`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+    } catch (error) {
+      console.error('Failed to leave session:', error);
+    }
+
     navigate('/menu');
   }
 

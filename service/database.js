@@ -62,6 +62,13 @@ async function addPlayerToSession(name, username) {
     );
 }
 
+async function removePlayerFromSession(name, username) {
+    await sessionCollection.updateOne(
+        { name: name },
+        { $pull: { players: username } }
+    );
+}
+
 async function createSession(name, host) {
   const session = { name, host, players: [host] };
   await sessionCollection.updateOne(
@@ -92,5 +99,6 @@ module.exports = {
     createSession,
     getSessions,
     getSession,
-    addPlayerToSession
+    addPlayerToSession,
+    removePlayerFromSession
 };
