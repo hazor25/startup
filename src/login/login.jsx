@@ -93,26 +93,14 @@ export function Login() {
             </thead>
 
             <tbody>
-              <tr>
-                <td>SeaWolf</td>
-                <td>3</td>
-                <td>8</td>
-                <td>2</td>
-              </tr>
-
-              <tr>
-                <td>Alasticass</td>
-                <td>1</td>
-                <td>3</td>
-                <td>5</td>
-              </tr>
-
-              <tr>
-                <td>Noobmaster69</td>
-                <td>2</td>
-                <td>4</td>
-                <td>3</td>
-              </tr>
+              {/* {leaderboard.map((player) => (
+                <tr key={player.username}>
+                  <td>{player.username}</td>
+                  <td>{player.wins}</td>
+                  <td>{player.kills}</td>
+                  <td>{player.deaths}</td>
+                </tr>
+              ))} */}
             </tbody>
           </table>
         </section>
