@@ -29,6 +29,7 @@ export default function App() {
     return false;
   }, []);
 
+
   useEffect(() => {
     async function loadUser() {
       try {
@@ -54,6 +55,7 @@ export default function App() {
 
     loadUser();
   }, []);
+
 
   useEffect(() => {
     if (!currentUser) {
@@ -98,6 +100,11 @@ export default function App() {
     };
   }, [currentUser]);
 
+
+  const clearLiveMessages = useCallback(() => {
+    setLiveMessages([]);
+  }, []);
+
   async function logout() {
     try {
       await fetch('/api/auth/logout', {
@@ -113,6 +120,7 @@ export default function App() {
       socketRef.current = null;
     }
 
+    clearLiveMessages();
     localStorage.removeItem('currentUser');
     setCurrentUser(null);
     window.location.href = '/';
@@ -159,7 +167,8 @@ export default function App() {
             path="/lobby"
             element={
               <ProtectedRoute>
-                <Lobby sendSocketMessage={sendSocketMessage} liveMessages={liveMessages} />
+                <Lobby sendSocketMessage={sendSocketMessage} 
+                liveMessages={liveMessages} clearLiveMessages={clearLiveMessages} />
               </ProtectedRoute>
             }
           />

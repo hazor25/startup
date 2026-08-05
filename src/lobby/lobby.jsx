@@ -154,6 +154,7 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
       console.error('Failed to leave session:', error);
     }
 
+    clearLiveMessages();
     navigate('/menu');
   }
 
