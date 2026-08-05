@@ -155,9 +155,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **Backend listens for WebSocket connection** - Multiple points of backend websocket listening, particularly when updating messages and game session information
+- [x] **Frontend makes WebSocket connection** - Frontend successfully connects to websocket
+- [x] **Data sent over WebSocket connection** - Several points of data sent over websocket such as chat messages and ready confirmation
+- [x] **WebSocket data displayed** - Data from websocket shown throughout, such as in user joining/leaving lobby confirmation messages
+- [x] **Application is fully functional** - Application is nearly entirely functional, game itself needs more time
