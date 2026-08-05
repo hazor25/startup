@@ -87,6 +87,10 @@ async function getSession(name) {
   return sessionCollection.findOne({ name: name });
 }
 
+async function deleteSession(name) {
+    await sessionCollection.deleteOne({ name: name });
+}
+
 
 module.exports = {
     getUser,
@@ -100,5 +104,6 @@ module.exports = {
     getSessions,
     getSession,
     addPlayerToSession,
-    removePlayerFromSession
+    removePlayerFromSession,
+    deleteSession,
 };

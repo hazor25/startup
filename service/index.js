@@ -213,6 +213,12 @@ app.post('/api/sessions/:name/leave', auth, async (req, res) => {
 
     await DB.removePlayerFromSession(sessionName, req.user.username);
     const updatedSession = await DB.getSession(sessionName);
+
+    if (!updatedSession || !updatedSession.players || updatedSession.players.length === 0) {
+        await DB.deleteSession(sessionName);
+        return res.json({ message: 'Session deleted because it became empty' });
+    }
+
     res.json(updatedSession);
 });
 
