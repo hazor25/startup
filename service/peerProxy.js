@@ -1,8 +1,40 @@
 const { WebSocketServer, WebSocket } = require('ws');
+const cookie = require('cookie');
+const DB = require('./database');
 
 function peerProxy(httpServer) {
-  const socketServer = new WebSocketServer({ server: httpServer, path: '/ws' });
+  const socketServer = new WebSocketServer({ noServer: true });
 
+  httpServer.on('upgrade', async (request, socket, head) => {
+    try {
+      const cookies = cookie.parse(request.headers.cookie || '');
+      const token = cookies.token;
+
+      if (!token) {
+        socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+        socket.destroy();
+        return;
+      }
+
+      const user = await DB.getUserByToken(token);
+      if (!user) {
+        socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+        socket.destroy();
+        return;
+      }
+
+      socketServer.handleUpgrade(request, socket, head, (ws) => {
+        ws.user = { username: user.username, token };
+        socketServer.emit('connection', ws, request);
+      });
+    } catch (err) {
+      console.error('WebSocket upgrade auth error:', err);
+      socket.write('HTTP/1.1 500 Internal Server Error\r\n\r\n');
+      socket.destroy();
+    }
+  });
+
+  
   socketServer.on('connection', (socket) => {
     socket.isAlive = true;
     socket.sessionName = null;
