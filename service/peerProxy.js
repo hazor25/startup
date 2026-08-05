@@ -1,30 +1,48 @@
 const { WebSocketServer, WebSocket } = require('ws');
 
 function peerProxy(httpServer) {
-  // Create a websocket object
   const socketServer = new WebSocketServer({ server: httpServer, path: '/ws' });
 
   socketServer.on('connection', (socket) => {
     socket.isAlive = true;
+    socket.sessionName = null;
 
-    // Forward messages to everyone except the sender
     socket.on('message', function message(data) {
-      socketServer.clients.forEach((client) => {
-        if (client !== socket && client.readyState === WebSocket.OPEN) {
-          client.send(data);
-        }
-      });
+      try {
+        const text = data.toString();
+        const msg = JSON.parse(text);
+
+        socket.sessionName = msg.sessionName;
+
+        socketServer.clients.forEach((client) => {
+          if (
+            client !== socket &&
+            client.readyState === WebSocket.OPEN &&
+            client.sessionName === msg.sessionName
+          ) {
+            client.send(text, (err) => {
+              if (err) {
+                console.error('WebSocket send error:', err);
+              }
+            });
+          }
+        });
+      } catch (err) {
+        console.error('Failed to process WebSocket message:', err);
+      }
     });
 
-    // Respond to pong messages by marking the connection alive
     socket.on('pong', () => {
       socket.isAlive = true;
     });
+
+    socket.on('close', () => {
+      console.log('WebSocket client disconnected');
+    });
   });
 
-  // Periodically send out a ping message to make sure clients are alive
   setInterval(() => {
-    socketServer.clients.forEach(function each(client) {
+    socketServer.clients.forEach((client) => {
       if (client.isAlive === false) return client.terminate();
 
       client.isAlive = false;
