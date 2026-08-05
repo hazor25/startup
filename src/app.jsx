@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import './app.css';
@@ -18,18 +18,16 @@ export default function App() {
 
   const socketRef = useRef(null);
 
-  function sendSocketMessage(messageObject) {
+  const sendSocketMessage = useCallback((messageObject) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-
       console.log('Sending WebSocket message:', messageObject);
-
       socketRef.current.send(JSON.stringify(messageObject));
       return true;
     }
 
     console.error('WebSocket is not connected');
     return false;
-  }
+  }, []);
 
   useEffect(() => {
     async function loadUser() {

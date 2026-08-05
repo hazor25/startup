@@ -13,6 +13,7 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
 
   const navigate = useNavigate();
   const sessionName = localStorage.getItem('sessionName');
+  const hasSentJoinRef = useRef(false);
 
 
   useEffect(() => {
@@ -43,7 +44,12 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
 
 
   useEffect(() => {
-    if (!user) {
+    hasSentJoinRef.current = false;
+  }, [sessionName]);
+
+
+  useEffect(() => {
+    if (!user || hasSentJoinRef.current) {
       return;
     }
 
@@ -58,6 +64,7 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
 
     if (sent) {
       setMessages((prev) => [...prev, joinMessage]);
+      hasSentJoinRef.current = true;
     }
   }, [user, sessionName, sendSocketMessage]);
 
