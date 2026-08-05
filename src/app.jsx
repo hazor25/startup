@@ -61,12 +61,7 @@ export default function App() {
     }
 
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-const host =
-  window.location.hostname === 'localhost'
-    ? 'localhost:4000'
-    : window.location.host;
-
-const socket = new WebSocket(`${protocol}://${host}`);
+    const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 
     socket.onopen = () => {
       console.log('WebSocket connected');
