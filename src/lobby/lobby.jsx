@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
-export function Lobby({ sendSocketMessage, liveMessages }) {
+export function Lobby({ sendSocketMessage, liveMessages, clearLiveMessages }) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [ready, setReady] = useState(false);
