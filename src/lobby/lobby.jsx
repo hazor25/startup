@@ -10,6 +10,7 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
   const [color, setColor] = useState('#ff0000');
   const [user, setUser] = useState(null);
   const [players, setPlayers] = useState([]);
+  const [host, setHost] = useState(null);
 
   const navigate = useNavigate();
   const sessionName = localStorage.getItem('sessionName');
@@ -119,6 +120,7 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
         if (response.ok) {
           const session = await response.json();
           setPlayers(session.players || []);
+          setHost(session.host || null);
         }
       } catch (error) {
         console.error('Failed to load session:', error);
@@ -205,7 +207,7 @@ export function Lobby({ sendSocketMessage, liveMessages }) {
       <section className="player-section-left">
         <section className="session-info">
           <h4>Session: {sessionName}</h4>
-          <h4>Host: {user?.username || 'Loading...'}</h4>
+          <h4>Host: {host || user?.username || 'Loading...'}</h4>
           <h4>Players: {players.length}/8</h4>
         </section>
 
